@@ -1,0 +1,3469 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CARVIA MOTORS — Find Your Perfect Car</title>
+  <link rel="icon" type="image/jpeg" href="images/cars/thar-lx.jpg">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --line: #e2e8f0;
+      --primary: #ff3b1f;
+      --primary-dark: #e0331a;
+      --dark: #0b1220;
+      --dark2: #111c33;
+      --radius: 18px;
+      --shadow: 0 10px 40px rgba(15, 23, 42, .08);
+      --shadow2: 0 20px 60px rgba(15, 23, 42, .14);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    img {
+      max-width: 100%;
+      display: block
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer
+    }
+
+    :where(a, button, input, select, textarea):focus-visible {
+      outline: 3px solid rgba(255, 59, 31, .55);
+      outline-offset: 3px
+    }
+
+    body.modal-open,
+    body.drawer-open {
+      overflow: hidden
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 24px
+    }
+
+    .header,
+    .navbar {
+      width: 100%;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, .95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line)
+    }
+
+    .nav-inner {
+      width: 100%;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 1;
+      max-width: 100%
+    }
+
+    .logo-mark {
+      width: 44px;
+      height: 44px;
+      background: var(--dark);
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-weight: 800;
+      font-size: 18px;
+      position: relative;
+      transform: rotate(-3deg);
+      flex-shrink: 0;
+      transition: all .2s ease
+    }
+
+    .logo-mark span {
+      transform: rotate(3deg);
+      display: flex;
+      align-items: center;
+      gap: 2px
+    }
+
+    .logo-mark i {
+      color: var(--primary);
+      font-size: 14px
+    }
+
+    .logo-text {
+      white-space: nowrap
+    }
+
+    .logo-text h1 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 18px;
+      letter-spacing: -.02em;
+      line-height: 1;
+      white-space: nowrap
+    }
+
+    .logo-text h1 span {
+      color: var(--primary)
+    }
+
+    .logo-text p {
+      font-size: 10px;
+      letter-spacing: .14em;
+      color: var(--muted);
+      font-weight: 600;
+      margin-top: 1px;
+      white-space: nowrap
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-shrink: 1
+    }
+
+    .nav-link,
+    .nav-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #334155;
+      transition: .2s;
+      white-space: nowrap
+    }
+
+    .nav-links a.active,
+    .nav-links a:hover {
+      background: var(--dark);
+      color: #fff
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0
+    }
+
+    .icon-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #fff;
+      display: grid;
+      place-items: center;
+      position: relative;
+      flex-shrink: 0;
+      transition: .2s
+    }
+
+    .icon-btn:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1
+    }
+
+    .icon-btn i {
+      font-size: 14px
+    }
+
+    .badge {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      background: var(--primary);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      min-width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      padding: 0 5px;
+      border: 2px solid #fff;
+      white-space: nowrap
+    }
+
+    .kbd {
+      font-size: 11px;
+      background: #fff;
+      border: 1px solid var(--line);
+      padding: 2px 6px;
+      border-radius: 6px;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      white-space: nowrap
+    }
+
+    .nav-links a.active .kbd,
+    .nav-links a:hover .kbd {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.3);
+      color: #fff
+    }
+
+    .btn {
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 14px;
+      border: 1px solid transparent;
+      transition: .2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      justify-content: center;
+      white-space: nowrap;
+      flex-shrink: 0
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(255, 59, 31, .28)
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px)
+    }
+
+    .btn-dark {
+      background: var(--dark);
+      color: #fff
+    }
+
+    .btn-dark:hover {
+      background: #162447
+    }
+
+    .btn-outline {
+      background: #fff;
+      border-color: var(--line);
+      color: var(--text)
+    }
+
+    .btn-outline:hover {
+      border-color: var(--text)
+    }
+
+    .btn-ghost {
+      background: #f1f5f9
+    }
+
+    .mobile-menu-button,
+    .hamburger {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: #fff;
+      place-items: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: .2s
+    }
+
+    .hamburger:hover {
+      background: #f1f5f9
+    }
+
+    .hero {
+      padding: 28px 0 40px
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 32px;
+      align-items: center
+    }
+
+    .hero-copy h2 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 52px;
+      line-height: .95;
+      letter-spacing: -.04em;
+      font-weight: 800
+    }
+
+    .hero-copy h2 span {
+      color: var(--primary)
+    }
+
+    .hero-copy>p {
+      color: var(--muted);
+      font-size: 16px;
+      margin: 14px 0 22px;
+      max-width: 520px
+    }
+
+    .search-box {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      padding: 14px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr auto;
+      gap: 12px;
+      align-items: end
+    }
+
+    .field label {
+      font-size: 11px;
+      letter-spacing: .08em;
+      font-weight: 700;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 6px
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: #f8fafc;
+      font-size: 14px;
+      outline: none;
+      transition: .2s
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      background: #fff;
+      border-color: var(--dark);
+      box-shadow: 0 0 0 3px rgba(15, 23, 42, .08)
+    }
+
+    .search-box .btn {
+      height: 46px;
+      padding: 0 24px
+    }
+
+    .hero-visual {
+      position: relative
+    }
+
+    .hero-img {
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: var(--shadow2);
+      background: #ddd;
+      height: 420px;
+      position: relative
+    }
+
+    .hero-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover
+    }
+
+    .hero-img video {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover
+    }
+
+    .hero-audio-toggle {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      z-index: 2;
+      background: rgba(255, 255, 255, .95)
+    }
+
+    .hero-car-caption {
+      position: absolute;
+      right: 20px;
+      bottom: 20px;
+      z-index: 1;
+      color: #fff;
+      text-align: right;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, .65)
+    }
+
+    .hero-car-caption span {
+      display: block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase
+    }
+
+    .hero-car-caption strong {
+      display: block;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 22px;
+      line-height: 1.2
+    }
+
+    .float-card {
+      position: absolute;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: var(--shadow2);
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border: 1px solid #eef2f7
+    }
+
+    .float-card .ic {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      color: #fff
+    }
+
+    .float-a {
+      bottom: 18px;
+      left: -14px
+    }
+
+    .float-b {
+      top: 22px;
+      right: -10px
+    }
+
+    .pill {
+      font-size: 12px;
+      font-weight: 700;
+      background: #f1f5f9;
+      padding: 4px 8px;
+      border-radius: 999px
+    }
+
+    .section {
+      padding: 36px 0
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px
+    }
+
+    .section-head h3 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 26px;
+      letter-spacing: -.03em
+    }
+
+    .section-head p {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 4px
+    }
+
+    .brands-grid {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 14px
+    }
+
+    .brand-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px 10px;
+      text-align: center;
+      transition: .2s;
+      cursor: pointer
+    }
+
+    .brand-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+      border-color: #cbd5e1
+    }
+
+    .brand-icon {
+      width: 54px;
+      height: 54px;
+      margin: 0 auto 10px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      color: #fff;
+      font-size: 15px;
+      letter-spacing: -.02em
+    }
+
+    .brand-card span {
+      font-size: 13px;
+      font-weight: 600
+    }
+
+    .cars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px
+    }
+
+    .car-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: .25s;
+      position: relative
+    }
+
+    .car-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow2)
+    }
+
+    .car-img {
+      height: 190px;
+      position: relative;
+      overflow: hidden;
+      background: #e2e8f0
+    }
+
+    .car-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: .4s
+    }
+
+    .car-image-name {
+      position: absolute;
+      left: 10px;
+      bottom: 42px;
+      max-width: calc(100% - 20px);
+      overflow: hidden;
+      padding: 5px 9px;
+      border-radius: 6px;
+      background: rgba(15, 23, 42, .88);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      text-overflow: ellipsis;
+      white-space: nowrap
+    }
+
+    .car-card:hover .car-img img {
+      transform: scale(1.06)
+    }
+
+    .badge-featured {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: var(--primary);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .06em;
+      padding: 6px 10px;
+      border-radius: 999px
+    }
+
+    .wish-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .95);
+      border: 1px solid #e2e8f0;
+      display: grid;
+      place-items: center;
+      backdrop-filter: blur(6px)
+    }
+
+    .wish-btn.active {
+      color: var(--primary);
+      background: #fff
+    }
+
+    .car-body {
+      padding: 16px
+    }
+
+    .car-title {
+      font-weight: 700;
+      font-size: 16px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis
+    }
+
+    .car-meta {
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 6px 0 10px
+    }
+
+    .car-meta span {
+      background: #f1f5f9;
+      padding: 4px 8px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px
+    }
+
+    .price-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 12px
+    }
+
+    .price {
+      font-weight: 800;
+      font-size: 18px
+    }
+
+    .price small {
+      font-weight: 600;
+      color: var(--muted);
+      font-size: 11px;
+      display: block
+    }
+
+    .price-offer {
+      display: inline-flex;
+      align-items: center;
+      margin-bottom: 4px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: #fff1f0;
+      color: var(--primary-dark);
+      font-size: 10px;
+      font-weight: 800
+    }
+
+    .price-current {
+      font-size: 18px;
+      font-weight: 800
+    }
+
+    .price-original {
+      margin-left: 5px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 500
+    }
+
+    .rental-rate {
+      display: block;
+      margin-top: 5px;
+      color: #166534;
+      font-size: 12px;
+      font-weight: 700
+    }
+
+    .rental-note {
+      display: block;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 500
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px
+    }
+
+    .card-actions .btn {
+      flex: 1;
+      padding: 10px 12px;
+      font-size: 13px
+    }
+
+    .budget-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px
+    }
+
+    .budget-card {
+      background: var(--dark);
+      color: #fff;
+      border-radius: 20px;
+      padding: 22px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      min-height: 130px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between
+    }
+
+    .budget-card:nth-child(2) {
+      background: #1a2744
+    }
+
+    .budget-card:nth-child(3) {
+      background: #fff;
+      color: var(--text);
+      border: 1px solid var(--line)
+    }
+
+    .budget-card:nth-child(4) {
+      background: var(--primary)
+    }
+
+    .budget-card h4 {
+      font-size: 18px;
+      line-height: 1.1
+    }
+
+    .budget-card p {
+      font-size: 13px;
+      opacity: .8
+    }
+
+    .body-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 14px
+    }
+
+    .body-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+      text-align: center;
+      cursor: pointer;
+      transition: .2s
+    }
+
+    .body-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow)
+    }
+
+    .body-icon {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 10px;
+      border-radius: 16px;
+      background: #f1f5f9;
+      display: grid;
+      place-items: center;
+      font-size: 20px
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px
+    }
+
+    .why-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 22px
+    }
+
+    .why-card .ic {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      margin-bottom: 14px
+    }
+
+    .about-benefits {
+      margin-top: 18px
+    }
+
+    .about-benefits h4 {
+      margin-bottom: 10px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 18px
+    }
+
+    .about-benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px
+    }
+
+    .about-benefit {
+      min-width: 0;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff
+    }
+
+    .about-benefit i {
+      display: grid;
+      width: 34px;
+      height: 34px;
+      margin-bottom: 9px;
+      place-items: center;
+      border-radius: 10px;
+      color: #fff;
+      background: var(--dark)
+    }
+
+    .about-benefit:nth-child(2) i { background: var(--primary) }
+    .about-benefit:nth-child(3) i { background: #0ea5e9 }
+    .about-benefit:nth-child(4) i { background: #16a34a }
+
+    .about-benefit strong {
+      display: block;
+      font-size: 13px
+    }
+
+    .about-benefit p {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5
+    }
+
+    .about-rental {
+      margin: 24px 0 32px;
+      padding: 24px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line)
+    }
+
+    .about-rental-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 16px
+    }
+
+    .about-rental-head h3 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 24px
+    }
+
+    .about-rental-head p {
+      max-width: 620px;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 14px
+    }
+
+    .rental-steps {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px
+    }
+
+    .rental-step {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff
+    }
+
+    .rental-step-number {
+      display: grid;
+      width: 32px;
+      height: 32px;
+      flex: 0 0 32px;
+      place-items: center;
+      border-radius: 10px;
+      background: #fff1f0;
+      color: var(--primary-dark);
+      font-size: 13px;
+      font-weight: 800
+    }
+
+    .rental-step strong,
+    .rental-terms strong {
+      display: block;
+      font-size: 13px
+    }
+
+    .rental-step p,
+    .rental-terms p {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.55
+    }
+
+    .rental-terms {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(260px, .8fr);
+      gap: 18px;
+      align-items: center;
+      margin-top: 14px;
+      padding: 16px;
+      border-radius: 14px;
+      background: #f1f5f9
+    }
+
+    .rental-contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center
+    }
+
+    @media (max-width: 767px) {
+      .about-rental-head {
+        align-items: flex-start;
+        flex-direction: column
+      }
+
+      .rental-steps,
+      .rental-terms {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px
+    }
+
+    .review {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 20px
+    }
+
+    .stars {
+      color: #f59e0b;
+      font-size: 13px
+    }
+
+    .cta {
+      background: var(--dark);
+      border-radius: 24px;
+      padding: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      color: #fff;
+      position: relative;
+      overflow: hidden
+    }
+
+    .cta::after {
+      content: "";
+      position: absolute;
+      right: -40px;
+      top: -40px;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(255, 59, 31, .35), transparent 70%)
+    }
+
+    .cars-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 22px
+    }
+
+    .sidebar {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 18px;
+      height: fit-content;
+      position: sticky;
+      top: 90px
+    }
+
+    .filter-group {
+      border-bottom: 1px solid #f1f5f9;
+      padding: 14px 0
+    }
+
+    .filter-group:last-child {
+      border: 0
+    }
+
+    .filter-title {
+      font-weight: 700;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px
+    }
+
+    .chip-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px
+    }
+
+    .chip {
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #f8fafc;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer
+    }
+
+    .chip.active {
+      background: var(--dark);
+      color: #fff;
+      border-color: var(--dark)
+    }
+
+    .range-row {
+      display: flex;
+      gap: 8px
+    }
+
+    .range-row input {
+      flex: 1
+    }
+
+    .cars-toolbar {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      flex-wrap: wrap
+    }
+
+    .searchbar {
+      flex: 1;
+      min-width: 240px;
+      position: relative
+    }
+
+    .searchbar input {
+      width: 100%;
+      padding: 12px 14px 12px 40px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #fff
+    }
+
+    .searchbar i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted)
+    }
+
+    .sort {
+      padding: 11px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: #fff
+    }
+
+    .detail-layout {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 22px
+    }
+
+    .gallery {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      overflow: hidden
+    }
+
+    .gallery-main {
+      height: 380px;
+      background: #e2e8f0
+    }
+
+    .gallery-main img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover
+    }
+
+    .thumbs {
+      display: flex;
+      gap: 10px;
+      padding: 12px;
+      overflow: auto
+    }
+
+    .thumbs img {
+      width: 84px;
+      height: 64px;
+      border-radius: 12px;
+      object-fit: cover;
+      border: 2px solid transparent;
+      cursor: pointer;
+      opacity: .7
+    }
+
+    .thumbs img.active {
+      border-color: var(--primary);
+      opacity: 1
+    }
+
+    .specs {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin: 14px 0
+    }
+
+    .spec {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px
+    }
+
+    .spec label {
+      flex: 0 1 auto;
+      font-size: 11px;
+      letter-spacing: .06em;
+      color: var(--muted);
+      font-weight: 700
+    }
+
+    .spec strong {
+      min-width: 0;
+      font-size: 14px;
+      text-align: right;
+      overflow-wrap: anywhere
+    }
+
+    .compare-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: #fff
+    }
+
+    .compare-table th,
+    .compare-table td {
+      padding: 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      font-size: 14px
+    }
+
+    .compare-table th {
+      background: #f8fafc;
+      width: 160px;
+      font-size: 12px;
+      letter-spacing: .06em;
+      color: var(--muted)
+    }
+
+    .form-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: var(--shadow)
+    }
+
+    .grid2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px
+    }
+
+    .footer {
+      background: var(--dark);
+      color: #cbd5e1;
+      margin-top: 40px
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr .8fr .8fr 1.1fr;
+      gap: 28px;
+      padding: 32px 0
+    }
+
+    .footer h4 {
+      color: #fff;
+      margin-bottom: 12px;
+      font-size: 14px;
+      letter-spacing: .04em
+    }
+
+    .footer a {
+      color: #94a3b8;
+      font-size: 14px;
+      display: block;
+      padding: 5px 0
+    }
+
+    .footer a:hover {
+      color: #fff
+    }
+
+    .footer-bottom {
+      border-top: 1px solid #1e293b;
+      padding: 16px 0;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      color: #64748b;
+      font-size: 13px
+    }
+
+    .toast {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      background: var(--dark);
+      color: #fff;
+      padding: 14px 16px;
+      border-radius: 14px;
+      box-shadow: var(--shadow2);
+      transform: translateY(120px);
+      opacity: 0;
+      transition: .3s;
+      z-index: 80;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      max-width: 360px
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1
+    }
+
+    .empty {
+      background: #fff;
+      border: 1px dashed #cbd5e1;
+      border-radius: 20px;
+      padding: 40px;
+      text-align: center
+    }
+
+    .hidden {
+      display: none !important
+    }
+
+    .mobile-drawer {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: none;
+    }
+
+    .drawer-bg {
+      position: absolute;
+      inset: 0;
+      background: rgba(15, 23, 42, .6);
+      backdrop-filter: blur(4px);
+    }
+
+    .drawer-panel {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 86%;
+      max-width: 340px;
+      background: #fff;
+      padding: 24px 20px;
+      overflow-y: auto;
+      box-shadow: -10px 0 30px rgba(0, 0, 0, 0.15);
+      animation: slideIn .25s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(100%);
+      }
+
+      to {
+        transform: translateX(0);
+      }
+    }
+
+    .drawer-panel .btn {
+      padding: 14px 20px;
+      font-size: 14px;
+      justify-content: flex-start;
+      border-radius: 12px;
+      white-space: nowrap;
+    }
+
+    @media (min-width: 1024px) and (max-width: 1200px) {
+      .container {
+        padding: 0 16px;
+      }
+
+      .nav-links {
+        gap: 10px;
+      }
+
+      .nav-links a {
+        padding: 7px 10px;
+        font-size: 13.5px;
+        gap: 5px;
+      }
+    }
+
+    @media (min-width: 768px) and (max-width: 1023px) {
+      .container {
+        padding: 0 12px;
+      }
+
+      .nav-inner {
+        height: 64px;
+        gap: 6px;
+      }
+
+      .logo {
+        gap: 8px;
+      }
+
+      .logo-mark {
+        width: 36px;
+        height: 36px;
+        font-size: 15px;
+        border-radius: 10px;
+      }
+
+      .logo-text h1 {
+        font-size: 15px;
+      }
+
+      .logo-text p {
+        display: none;
+      }
+
+      .desktop-nav,
+      .nav-links {
+        display: flex !important;
+        gap: 3px;
+      }
+
+      .nav-link,
+      .nav-links a {
+        padding: 6px 7px;
+        font-size: 12px;
+        gap: 4px;
+        white-space: nowrap;
+      }
+
+      .kbd {
+        font-size: 10px;
+        padding: 1px 4px;
+      }
+
+      .nav-actions {
+        gap: 5px;
+      }
+
+      .icon-btn {
+        width: 34px;
+        height: 34px;
+      }
+
+      .icon-btn i {
+        font-size: 12px;
+      }
+
+      .btn {
+        padding: 7px 11px;
+        font-size: 12px;
+      }
+
+      .mobile-menu-button,
+      .hamburger {
+        display: none !important;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-img {
+        height: 360px;
+      }
+
+      .float-a {
+        left: 12px;
+      }
+
+      .float-b {
+        right: 12px;
+      }
+
+      .brands-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .cars-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .budget-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .body-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .why-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .reviews-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cars-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: static;
+      }
+
+      .detail-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .cta {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .container {
+        padding: 0 16px;
+      }
+
+      .nav-inner {
+        height: 64px;
+      }
+
+      .logo-text p {
+        display: none;
+      }
+
+      .logo-text h1 {
+        font-size: 16px;
+      }
+
+      .logo-mark {
+        width: 38px;
+        height: 38px;
+        font-size: 16px;
+      }
+
+      .desktop-nav,
+      .nav-links,
+      .nav-actions .hide-m {
+        display: none !important;
+      }
+
+      .mobile-menu-button,
+      .hamburger {
+        display: grid !important;
+        place-items: center;
+      }
+
+      .nav-actions {
+        gap: 8px;
+      }
+
+      .search-box {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .cars-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .grid2 {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-copy h2 {
+        font-size: 34px;
+      }
+
+      .hero-visual {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .hero-img {
+        flex: 0 0 100%;
+        height: clamp(230px, 68vw, 320px);
+        border-radius: 18px;
+      }
+
+      .hero-car-caption {
+        right: 14px;
+        bottom: 14px;
+      }
+
+      .hero-car-caption strong {
+        font-size: 18px;
+      }
+
+      .float-card {
+        position: static;
+        flex: 1 1 150px;
+        min-width: 0;
+        padding: 10px;
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+      }
+
+      .float-card .ic {
+        width: 34px;
+        height: 34px;
+        flex: 0 0 34px;
+      }
+
+      .float-b .pill {
+        display: none;
+      }
+
+      .brands-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+      }
+
+      .brand-card {
+        min-width: 0;
+        padding: 14px 6px;
+      }
+
+      .brand-card span {
+        display: block;
+        overflow-wrap: anywhere;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .page {
+      display: none;
+      animation: fade .25s ease
+    }
+
+    .page.active {
+      display: block
+    }
+
+    @keyframes fade {
+      from {
+        opacity: 0;
+        transform: translateY(6px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    .kbd {
+      font-size: 11px;
+      background: #fff;
+      border: 1px solid var(--line);
+      padding: 2px 6px;
+      border-radius: 6px;
+      color: var(--muted)
+    }
+  </style>
+</head>
+
+<body>
+  <header class="navbar header">
+    <div class="container nav-inner">
+      <div class="logo" data-nav="home" style="cursor:pointer">
+        <div class="logo-mark"><span><i class="fa-solid fa-car-side"></i> C</span></div>
+        <div class="logo-text">
+          <h1>CARVIA <span>MOTORS</span></h1>
+          <p>FIND YOUR PERFECT CAR</p>
+        </div>
+      </div>
+      <nav class="nav-links desktop-nav" id="navLinks">
+        <a href="#" data-nav="home" class="nav-link active" aria-current="page">Home</a>
+        <a href="#" data-nav="cars" class="nav-link">Cars</a>
+        <a href="#" data-nav="about" class="nav-link">About</a>
+        <a href="#" data-nav="sell" class="nav-link">Sell Car</a>
+        <a href="#" data-nav="contact" class="nav-link">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="hamburger mobile-menu-button" id="hamburger" aria-label="Toggle navigation" aria-controls="mobileDrawer" aria-expanded="false"><i
+            class="fa-solid fa-bars"></i></button>
+      </div>
+    </div>
+  </header>
+  <div class="mobile-drawer" id="mobileDrawer">
+    <div class="drawer-bg" id="drawerBackdrop"></div>
+    <div class="drawer-panel">
+      <div
+        style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid var(--line)">
+        <div class="logo" data-nav="home" style="cursor:pointer">
+          <div class="logo-mark" style="width:34px;height:34px;font-size:14px"><span><i
+                class="fa-solid fa-car-side"></i> C</span></div>
+          <div class="logo-text">
+            <h1 style="font-size:15px">CARVIA <span>MOTORS</span></h1>
+          </div>
+        </div>
+        <button class="icon-btn" id="closeDrawer" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div style="display:grid;gap:8px" id="mobileNavLinks">
+        <a href="#" class="btn btn-outline" data-nav="home" style="justify-content:flex-start"><i class="fa-solid fa-house"
+            style="width:20px;color:var(--primary)"></i> Home</a>
+        <a href="#" class="btn btn-outline" data-nav="cars" style="justify-content:flex-start"><i class="fa-solid fa-car-side"
+          style="width:20px;color:var(--primary)"></i> Cars</a>
+        <a href="#" class="btn btn-outline" data-nav="about" style="justify-content:flex-start"><i
+            class="fa-solid fa-circle-info" style="width:20px;color:var(--primary)"></i> About</a>
+        <a href="#" class="btn btn-outline" data-nav="sell" style="justify-content:flex-start"><i class="fa-solid fa-tag"
+            style="width:20px;color:var(--primary)"></i> Sell Car</a>
+        <a href="#" class="btn btn-outline" data-nav="contact" style="justify-content:flex-start"><i class="fa-solid fa-envelope"
+            style="width:20px;color:var(--primary)"></i> Contact</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+    <!-- HOME -->
+    <section id="page-home" class="page active">
+      <div class="hero">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <div
+              style="display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);padding:6px 10px;border-radius:999px;font-size:12px;font-weight:700">
+              <span style="width:8px;height:8px;background:#22c55e;border-radius:999px;display:inline-block"></span>
+              2,340+ Verified Cars Available
+            </div>
+            <h2>Find Your <span>Perfect Car</span></h2>
+            <p>Save 20% on every listed car, or rent by the day. Explore inspected vehicles with clear pricing, flexible
+              finance and support from enquiry to delivery.</p>
+            <div class="search-box" id="heroSearch">
+              <div class="field"><label>BRAND / MODEL</label><input id="heroBrand" placeholder="e.g. Swift, Creta">
+              </div>
+              <div class="field"><label>LOCATION</label><select id="heroLocation">
+                  <option value="">Any Location</option>
+                  <option>Delhi</option>
+                  <option>Mumbai</option>
+                  <option>Bangalore</option>
+                  <option>Pune</option>
+                  <option>Hyderabad</option>
+                  <option>Chennai</option>
+                  <option>Jaipur</option>
+                  <option>Kolkata</option>
+                  <option>Ahmedabad</option>
+                </select></div>
+              <div class="field"><label>BUDGET</label><select id="heroBudget">
+                  <option value="">Any Budget</option>
+                  <option value="0-500000">Under ₹5 Lakh</option>
+                  <option value="500000-1000000">₹5 - 10 Lakh</option>
+                  <option value="1000000-2000000">₹10 - 20 Lakh</option>
+                  <option value="2000000-99999999">Above ₹20 Lakh</option>
+                </select></div>
+              <button class="btn btn-primary" id="heroSearchBtn"><i class="fa-solid fa-magnifying-glass"></i>
+                Search</button>
+            </div>
+            <div style="display:flex;gap:18px;margin-top:16px;color:var(--muted);font-size:13px;flex-wrap:wrap"><span><i
+                  class="fa-solid fa-shield-halved" style="color:#22c55e"></i> Certified & Inspected</span><span><i
+                  class="fa-solid fa-rotate" style="color:var(--primary)"></i> 7-Day Buyback</span><span><i
+                  class="fa-solid fa-file-shield" style="color:#0ea5e9"></i> Non-Meter Tampered</span></div>
+          </div>
+          <div class="hero-visual">
+            <div class="hero-img">
+              <video id="heroVideo" autoplay muted loop playsinline preload="metadata" poster="images/cars/thar-lx.jpg" aria-label="Mahindra Thar LX video">
+                <source src="videos/thar-home.mp4" type="video/mp4">
+              </video>
+              <div
+                style="position:absolute;inset:0;background:linear-gradient(180deg, transparent 30%, rgba(11,18,32,.35))">
+              </div>
+              <button class="icon-btn hero-audio-toggle" id="heroAudioToggle" type="button" aria-label="Turn video sound on" aria-pressed="false" title="Turn video sound on">
+                <i class="fa-solid fa-volume-xmark" aria-hidden="true"></i>
+              </button>
+              <div class="hero-car-caption"><span>Featured SUV</span><strong>Mahindra Thar LX</strong></div>
+            </div>
+            <div class="float-card float-a">
+              <div class="ic" style="background:#0f172a"><i class="fa-solid fa-award"></i></div>
+              <div>
+                <div style="font-weight:800">4.8/5 Rating</div>
+                <div style="font-size:12px;color:var(--muted)">Based on 12k+ reviews</div>
+              </div>
+            </div>
+            <div class="float-card float-b">
+              <div class="ic" style="background:var(--primary)"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+              <div>
+                <div style="font-weight:800">Starts ₹3.2 Lakh</div>
+                <div style="font-size:12px;color:var(--muted)">EMI from ₹6,499/mo</div>
+              </div><span class="pill">Verified</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-head">
+          <div>
+            <h3>Popular Brands</h3>
+            <p>Choose from India's most trusted manufacturers</p>
+          </div><a href="#" class="btn btn-outline" data-nav="cars">View all cars <i
+              class="fa-solid fa-arrow-right"></i></a>
+        </div>
+        <div class="brands-grid" id="brandsGrid"></div>
+      </div>
+
+      <div class="section">
+        <div class="section-head">
+          <div>
+            <h3>Featured Cars</h3>
+            <p>Handpicked certified cars with best value</p>
+          </div>
+          <div style="display:flex;gap:8px"><button class="btn btn-outline" id="featPrev"><i
+                class="fa-solid fa-chevron-left"></i></button><button class="btn btn-outline" id="featNext"><i
+                class="fa-solid fa-chevron-right"></i></button></div>
+        </div>
+        <div class="cars-grid" id="featuredGrid"></div>
+      </div>
+
+      <div class="section">
+        <div class="section-head">
+          <div>
+            <h3>Shop by Budget</h3>
+            <p>Find the right price for every pocket</p>
+          </div>
+        </div>
+        <div class="budget-grid">
+          <div class="budget-card" data-budget="0-500000">
+            <div>
+              <p>ENTRY RANGE</p>
+              <h4>Under ₹5 Lakh</h4>
+            </div>
+            <p>312 Cars • Hatchbacks & Sedans</p><i class="fa-solid fa-arrow-up-right-from-square"
+              style="position:absolute;right:18px;top:18px;opacity:.6"></i>
+          </div>
+          <div class="budget-card" data-budget="500000-1000000">
+            <div>
+              <p>MOST POPULAR</p>
+              <h4>₹5 — 10 Lakh</h4>
+            </div>
+            <p>864 Cars • SUV & Sedan</p>
+          </div>
+          <div class="budget-card" data-budget="1000000-2000000">
+            <div>
+              <p>PREMIUM</p>
+              <h4>₹10 — 20 Lakh</h4>
+            </div>
+            <p>421 Cars • Luxury & SUV</p>
+          </div>
+          <div class="budget-card" data-budget="2000000-99999999">
+            <div>
+              <p>LUXURY</p>
+              <h4>Above ₹20 Lakh</h4>
+            </div>
+            <p>98 Cars • BMW, Fortuner & more</p>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-head">
+          <div>
+            <h3>Customer Reviews</h3>
+            <p>What our buyers say</p>
+          </div>
+        </div>
+        <div class="reviews-grid">
+          <div class="review">
+            <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> 5.0</div>
+            <p style="margin:10px 0">“CARVIA made buying my Swift so simple. Transparent paperwork and the car was
+              exactly as shown. Highly recommended!”</p>
+            <div style="display:flex;gap:10px;align-items:center"><img src="https://i.pravatar.cc/100?img=12"
+                style="width:36px;height:36px;border-radius:999px">
+              <div><strong style="font-size:13px">Aarav Mehta</strong>
+                <div style="font-size:12px;color:var(--muted)">Delhi • Swift ZXI 2021</div>
+              </div>
+            </div>
+          </div>
+          <div class="review">
+            <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                class="fa-solid fa-star-half-stroke"></i> 4.8</div>
+            <p style="margin:10px 0">“Best price for my Creta and instant loan approval. The team was professional and
+              delivery was on time.”</p>
+            <div style="display:flex;gap:10px;align-items:center"><img src="https://i.pravatar.cc/100?img=32"
+                style="width:36px;height:36px;border-radius:999px">
+              <div><strong style="font-size:13px">Priya Sharma</strong>
+                <div style="font-size:12px;color:var(--muted)">Mumbai • Creta SX 2020</div>
+              </div>
+            </div>
+          </div>
+          <div class="review">
+            <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> 5.0</div>
+            <p style="margin:10px 0">“Sold my old car in a day and got great exchange bonus. Fully digital and hassle
+              free experience.”</p>
+            <div style="display:flex;gap:10px;align-items:center"><img src="https://i.pravatar.cc/100?img=15"
+                style="width:36px;height:36px;border-radius:999px">
+              <div><strong style="font-size:13px">Rohit Verma</strong>
+                <div style="font-size:12px;color:var(--muted)">Bangalore • City VX 2019</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta">
+        <div>
+          <h3 style="font-size:22px">Sell your car in 24 hours — get best price!</h3>
+          <p style="opacity:.8;font-size:14px;margin-top:6px">Free inspection at home • Instant payment • Paperwork
+            handled by us</p>
+        </div>
+        <button class="btn btn-primary" data-nav="sell" style="background:#fff;color:var(--dark)">Sell Your Car <i
+            class="fa-solid fa-arrow-right"></i></button>
+      </div>
+    </section>
+
+    <!-- CARS -->
+    <section id="page-cars" class="page">
+      <div class="section" style="padding-bottom:0">
+        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between">
+          <div>
+            <h3 style="font-size:28px;letter-spacing:-.03em">Car Listings</h3>
+            <p style="color:var(--muted)">Find from <span id="totalCars">0</span> verified used cars</p>
+          </div>
+          <div style="display:flex;gap:8px"><button class="btn btn-outline" id="clearFilters"><i
+                class="fa-solid fa-rotate"></i> Clear All</button><button class="btn btn-dark hide-m"
+              id="toggleFilters"><i class="fa-solid fa-sliders"></i> Filters</button></div>
+        </div>
+      </div>
+      <div class="cars-toolbar">
+        <div class="searchbar"><i class="fa-solid fa-magnifying-glass"></i><input id="carsSearch"
+            placeholder="Search brand, model, location..."></div>
+        <select class="sort" id="sortSelect">
+          <option value="newest">Sort: Newest First</option>
+          <option value="oldest">Oldest First</option>
+          <option value="priceLow">Price: Low to High</option>
+          <option value="priceHigh">Price: High to Low</option>
+          <option value="kmLow">KM: Low to High</option>
+        </select>
+      </div>
+      <div class="cars-layout">
+        <aside class="sidebar" id="sidebar">
+          <div class="filter-group">
+            <div class="filter-title">Brand</div>
+            <div class="chip-wrap" id="brandFilters"></div>
+          </div>
+          <div class="filter-group">
+            <div class="filter-title">Model</div>
+            <div class="field"><input id="modelFilter" placeholder="Type model e.g. Swift"></div>
+          </div>
+          <div class="filter-group">
+            <div class="filter-title">Price Range</div>
+            <div class="range-row">
+              <div class="field" style="flex:1"><select id="priceMin">
+                  <option value="">Min</option>
+                  <option value="0">₹0</option>
+                  <option value="300000">₹3 Lakh</option>
+                  <option value="500000">₹5 Lakh</option>
+                  <option value="1000000">₹10 Lakh</option>
+                  <option value="2000000">₹20 Lakh</option>
+                </select></div>
+              <div class="field" style="flex:1"><select id="priceMax">
+                  <option value="">Max</option>
+                  <option value="500000">₹5 Lakh</option>
+                  <option value="1000000">₹10 Lakh</option>
+                  <option value="2000000">₹20 Lakh</option>
+                  <option value="5000000">₹50 Lakh</option>
+                </select></div>
+            </div>
+          </div>
+          <div class="filter-group">
+            <div class="filter-title">Year</div>
+            <div class="range-row"><select id="yearMin" class="sort" style="flex:1">
+                <option value="">From</option>
+                <option>2016</option>
+                <option>2018</option>
+                <option>2020</option>
+                <option>2022</option>
+              </select><select id="yearMax" class="sort" style="flex:1">
+                <option value="">To</option>
+                <option>2020</option>
+                <option>2022</option>
+                <option>2023</option>
+                <option>2024</option>
+              </select></div>
+          </div>
+          <div class="filter-group">
+            <div class="filter-title">Fuel</div>
+            <div class="chip-wrap" id="fuelFilters"></div>
+          </div>
+          <div class="filter-group">
+            <div class="filter-title">Transmission</div>
+            <div class="chip-wrap" id="transFilters"></div>
+          </div>
+          <div class="filter-group">
+            <div class="filter-title">KM Driven</div><select id="kmFilter" class="sort" style="width:100%">
+              <option value="">Any KM</option>
+              <option value="20000">Under 20k KM</option>
+              <option value="40000">Under 40k KM</option>
+              <option value="60000">Under 60k KM</option>
+              <option value="100000">Under 1 Lakh KM</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <div class="filter-title">Body Type</div>
+            <div class="chip-wrap" id="bodyFilters"></div>
+          </div>
+          <div class="filter-group">
+            <div class="filter-title">Location</div>
+            <div class="chip-wrap" id="locFilters"></div>
+          </div>
+        </aside>
+        <div>
+          <div class="cars-grid" id="carsGrid"></div>
+          <div id="carsEmpty" class="empty hidden"><i class="fa-solid fa-car-side"
+              style="font-size:28px;color:var(--muted)"></i>
+            <h4 style="margin:10px 0 6px">No cars found</h4>
+            <p style="color:var(--muted)">Try adjusting filters or search term</p><button class="btn btn-primary"
+              style="margin-top:12px" id="resetEmpty">Reset Filters</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CAR DETAILS -->
+    <section id="page-car-details" class="page">
+      <button class="btn btn-outline" data-nav="cars" style="margin:16px 0"><i class="fa-solid fa-arrow-left"></i> Back
+        to listings</button>
+      <div id="carDetails"></div>
+    </section>
+
+
+
+    <!-- SELL -->
+    <section id="page-sell" class="page">
+      <div style="max-width:860px;margin:18px auto">
+        <div style="text-align:center;margin-bottom:18px">
+          <h3 style="font-size:28px;letter-spacing:-.03em">Sell Your Car</h3>
+          <p style="color:var(--muted)">Get the best price in 24 hours — free doorstep evaluation</p>
+        </div>
+        <form id="sellForm" class="form-card">
+          <div class="grid2">
+            <div class="field"><label>Brand *</label><select id="sellBrand" required>
+                <option value="">Select Brand</option>
+                <option>Maruti Suzuki</option>
+                <option>Hyundai</option>
+                <option>Tata</option>
+                <option>Mahindra</option>
+                <option>Honda</option>
+                <option>Toyota</option>
+                <option>Kia</option>
+                <option>BMW</option>
+              </select></div>
+            <div class="field"><label>Model *</label><input id="sellModel" placeholder="e.g. Swift ZXI" required></div>
+            <div class="field"><label>Year *</label><input id="sellYear" type="number" min="2005" max="2024"
+                placeholder="2021" required></div>
+            <div class="field"><label>Price (₹) *</label><input id="sellPrice" type="number" placeholder="650000"
+                required></div>
+            <div class="field"><label>KM Driven *</label><input id="sellKm" type="number" placeholder="35000" required>
+            </div>
+            <div class="field"><label>Fuel *</label><select id="sellFuel" required>
+                <option>Petrol</option>
+                <option>Diesel</option>
+                <option>CNG</option>
+                <option>Electric</option>
+                <option>Hybrid</option>
+              </select></div>
+            <div class="field"><label>Transmission *</label><select id="sellTrans" required>
+                <option>Manual</option>
+                <option>Automatic</option>
+              </select></div>
+            <div class="field"><label>Body Type</label><select id="sellBody">
+                <option>Hatchback</option>
+                <option>Sedan</option>
+                <option>SUV</option>
+                <option>MPV</option>
+                <option>Coupe</option>
+                <option>Convertible</option>
+              </select></div>
+            <div class="field"><label>Location *</label><select id="sellLocation" required>
+                <option>Delhi</option>
+                <option>Mumbai</option>
+                <option>Bangalore</option>
+                <option>Pune</option>
+                <option>Hyderabad</option>
+                <option>Chennai</option>
+                <option>Jaipur</option>
+                <option>Kolkata</option>
+                <option>Ahmedabad</option>
+              </select></div>
+            <div class="field"><label>Image URL</label><input id="sellImage"
+                placeholder="https://... (or leave blank for default)"></div>
+            <div class="field" style="grid-column:1/-1"><label>Description</label><textarea id="sellDesc" rows="3"
+                placeholder="Condition, owners, service history..."></textarea></div>
+            <div class="field"><label>Owner Name</label><input id="sellOwner" placeholder="Your name"></div>
+            <div class="field"><label>Phone</label><input id="sellPhone" placeholder="98765 43210"></div>
+          </div>
+          <label style="display:flex;gap:8px;align-items:center;margin:14px 0;font-size:13px"><input type="checkbox"
+              id="sellFeatured"> Mark as Featured</label>
+          <button class="btn btn-primary" type="submit" style="width:100%">List My Car <i
+              class="fa-solid fa-arrow-right"></i></button>
+          <p style="text-align:center;color:var(--muted);font-size:12px;margin-top:10px">By submitting, you agree to
+            CARVIA's terms • No spam, instant valuation call</p>
+        </form>
+      </div>
+    </section>
+
+    <!-- LOGIN -->
+    <section id="page-login" class="page">
+      <div style="max-width:480px;margin:30px auto">
+        <div class="form-card">
+          <h3 style="font-size:24px">Welcome back</h3>
+          <p style="color:var(--muted);margin:6px 0 16px">Login to manage your listings & enquiries</p>
+          <div
+            style="background:#f8fafc;border:1px dashed #cbd5e1;border-radius:12px;padding:10px 12px;font-size:12px;margin-bottom:14px">
+            <strong>Demo:</strong> demo@carvia.com / demo123
+          </div>
+          <form id="loginForm">
+            <div class="field" style="margin-bottom:12px"><label>Email</label><input id="loginEmail" type="email"
+                placeholder="you@email.com" required></div>
+            <div class="field" style="margin-bottom:14px"><label>Password</label><input id="loginPass" type="password"
+                placeholder="••••••••" required></div>
+            <button class="btn btn-primary" type="submit" style="width:100%">Login</button>
+          </form>
+          <p style="text-align:center;margin-top:14px;font-size:14px">No account? <a href="#" data-nav="register"
+              style="color:var(--primary);font-weight:700">Create one</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- REGISTER -->
+    <section id="page-register" class="page">
+      <div style="max-width:520px;margin:30px auto">
+        <div class="form-card">
+          <h3 style="font-size:24px">Create account</h3>
+          <p style="color:var(--muted);margin:6px 0 16px">Join CARVIA for a smarter car journey</p>
+          <form id="registerForm">
+            <div class="grid2">
+              <div class="field"><label>Full Name</label><input id="regName" required placeholder="Aarav Mehta"></div>
+              <div class="field"><label>Phone</label><input id="regPhone" placeholder="98765 43210"></div>
+            </div>
+            <div class="field" style="margin:12px 0"><label>Email</label><input id="regEmail" type="email" required
+                placeholder="you@email.com"></div>
+            <div class="grid2">
+              <div class="field"><label>Password</label><input id="regPass" type="password" required
+                  placeholder="Min 6 characters"></div>
+              <div class="field"><label>Confirm Password</label><input id="regConfirm" type="password" required></div>
+            </div>
+            <button class="btn btn-primary" type="submit" style="width:100%;margin-top:14px">Create Account</button>
+          </form>
+          <p style="text-align:center;margin-top:14px;font-size:14px">Already have account? <a href="#" data-nav="login"
+              style="color:var(--primary);font-weight:700">Login</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="page-about" class="page">
+      <div style="display:grid;grid-template-columns:1.1fr .9fr;gap:22px;margin:18px 0" class="detail-layout">
+        <div>
+          <h3 style="font-size:32px;letter-spacing:-.03em">About CARVIA MOTORS</h3>
+          <p style="color:var(--muted);margin:10px 0">Inspired by the simplicity of OLX Cars, CARVIA reimagines used-car
+            buying with trust, technology and transparency. We don't copy — we create a cleaner, more premium experience
+            for India.</p>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0">
+            <div style="background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;text-align:center">
+              <div style="font-weight:800;font-size:22px">12K+</div>
+              <div style="font-size:12px;color:var(--muted)">Cars Sold</div>
+            </div>
+            <div style="background:var(--dark);color:#fff;border-radius:16px;padding:14px;text-align:center">
+              <div style="font-weight:800;font-size:22px">4.8★</div>
+              <div style="font-size:12px;opacity:.7">Customer Rating</div>
+            </div>
+            <div style="background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;text-align:center">
+              <div style="font-weight:800;font-size:22px">8</div>
+              <div style="font-size:12px;color:var(--muted)">Cities</div>
+            </div>
+          </div>
+          <div class="about-benefits">
+            <h4>Your CARVIA Benefits</h4>
+            <div class="about-benefits-grid">
+              <article class="about-benefit">
+                <i class="fa-solid fa-clipboard-check" aria-hidden="true"></i>
+                <strong>Inspected Cars</strong>
+                <p>Browse cars checked for condition and service history.</p>
+              </article>
+              <article class="about-benefit">
+                <i class="fa-solid fa-tags" aria-hidden="true"></i>
+                <strong>Clear Pricing</strong>
+                <p>See the listed price upfront, with no hidden charges.</p>
+              </article>
+              <article class="about-benefit">
+                <i class="fa-solid fa-car-side" aria-hidden="true"></i>
+                <strong>Test Drives</strong>
+                <p>Book a test drive and make your choice with confidence.</p>
+              </article>
+              <article class="about-benefit">
+                <i class="fa-solid fa-file-shield" aria-hidden="true"></i>
+                <strong>Buying Support</strong>
+                <p>Get help with finance options and vehicle paperwork.</p>
+              </article>
+            </div>
+          </div>
+        </div>
+        <div><img src="https://images.unsplash.com/photo-1485291571150-772bcfc10da5?w=900&q=80&auto=format&fit=crop"
+            style="border-radius:20px;height:420px;width:100%;object-fit:cover">
+          <div class="form-card" style="margin-top:14px">
+            <h4>How it works</h4>
+            <ol style="margin-top:8px;color:var(--muted);font-size:14px;line-height:1.8">
+              <li>Browse & filter 2,000+ verified cars</li>
+              <li>Book test drive or video inspection</li>
+              <li>Instant finance & insurance</li>
+              <li>Doorstep delivery across India</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <section class="about-rental" aria-labelledby="aboutRentalTitle">
+        <div class="about-rental-head">
+          <div>
+            <h3 id="aboutRentalTitle">Rent a Car with CARVIA</h3>
+            <p>Choose a listed car, note the estimated daily rate, and contact us with your dates so we can check availability and terms.</p>
+          </div>
+          <a class="btn btn-primary" href="#" data-nav="cars"><i class="fa-solid fa-car-side" aria-hidden="true"></i> Browse Cars</a>
+        </div>
+        <div class="rental-steps">
+          <article class="rental-step">
+            <span class="rental-step-number">1</span>
+            <div><strong>Choose a car</strong><p>Browse the listings and check the displayed estimated daily rental rate.</p></div>
+          </article>
+          <article class="rental-step">
+            <span class="rental-step-number">2</span>
+            <div><strong>Prepare your request</strong><p>Select Rent to enter your preferred start date, rental duration and contact details.</p></div>
+          </article>
+          <article class="rental-step">
+            <span class="rental-step-number">3</span>
+            <div><strong>Confirm before you travel</strong><p>Call or email CARVIA to confirm vehicle availability, final charges and pickup or delivery arrangements.</p></div>
+          </article>
+        </div>
+        <div class="rental-terms">
+          <div>
+            <strong>What to confirm before booking</strong>
+            <p>Daily rate and total cost, security deposit, included kilometres, fuel policy, insurance, required documents, pickup or delivery location, and cancellation terms. These can vary by vehicle and rental period.</p>
+            <p>Rates shown online are estimates only. A rental is not confirmed until availability and terms are agreed directly with CARVIA.</p>
+          </div>
+          <div>
+            <strong>Ask us about service availability</strong>
+            <p>Share your city, dates and preferred car so we can confirm where rental service is available.</p>
+            <div class="rental-contact">
+              <a class="btn btn-outline" href="tel:+919786404383"><i class="fa-solid fa-phone" aria-hidden="true"></i> Call +91 97864 04383</a>
+              <a class="btn btn-outline" href="mailto:mohammedmaaz4383@gmail.com"><i class="fa-solid fa-envelope" aria-hidden="true"></i> Email CARVIA</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="page-contact" class="page">
+      <div style="max-width:1060px;margin:18px auto;display:grid;grid-template-columns:.9fr 1.1fr;gap:18px"
+        class="detail-layout">
+        <div>
+          <h3 style="font-size:28px">Contact Us</h3>
+          <p style="color:var(--muted);margin:6px 0 14px">We'd love to help you find your perfect car.</p>
+          <div class="form-card" style="display:grid;gap:12px">
+            <div style="display:flex;gap:12px">
+              <div style="width:40px;height:40px;border-radius:12px;background:#f1f5f9;display:grid;place-items:center">
+                <i class="fa-solid fa-location-dot"></i>
+              </div>
+              <div><strong>CARVIA HQ</strong>
+                <div style="color:var(--muted);font-size:13px">Plot 42, Auto Avenue, Gurugram, Haryana 122001</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:12px">
+              <div
+                style="width:40px;height:40px;border-radius:12px;background:#fff1f0;display:grid;place-items:center;color:var(--primary)">
+                <i class="fa-solid fa-phone"></i>
+              </div>
+              <div><a href="tel:+919786404383"><strong>+91 97864 04383</strong></a>
+                <div style="color:var(--muted);font-size:13px">Mon-Sat 9am - 8pm</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:12px">
+              <div style="width:40px;height:40px;border-radius:12px;background:#f1f5f9;display:grid;place-items:center">
+                <i class="fa-solid fa-envelope"></i>
+              </div>
+              <div><a href="mailto:mohammedmaaz4383@gmail.com"><strong>mohammedmaaz4383@gmail.com</strong></a>
+                <div style="color:var(--muted);font-size:13px">Reply within 2 hours</div>
+              </div>
+            </div>
+            <div
+              style="height:160px;border-radius:14px;background:linear-gradient(135deg,#e2e8f0,#f8fafc);display:grid;place-items:center;color:var(--muted);border:1px solid var(--line)">
+              <i class="fa-solid fa-map-location-dot" style="font-size:22px"></i> Map Preview — Gurugram
+            </div>
+          </div>
+        </div>
+        <form id="contactForm" class="form-card">
+          <div class="grid2">
+            <div class="field"><label>Name</label><input id="cName" required placeholder="Your name"></div>
+            <div class="field"><label>Phone</label><input id="cPhone" placeholder="98765 43210"></div>
+          </div>
+          <div class="field" style="margin:12px 0"><label>Email</label><input id="cEmail" type="email" required
+              placeholder="you@email.com"></div>
+          <div class="field"><label>Message</label><textarea id="cMsg" rows="5" required
+              placeholder="Tell us what you're looking for..."></textarea></div>
+          <button class="btn btn-primary" type="submit" style="width:100%">Send Message</button>
+          <p style="font-size:12px;color:var(--muted);text-align:center;margin-top:8px">Your email app will open with this enquiry. Press Send there to contact CARVIA.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div style="display:flex;gap:10px;align-items:center">
+            <div class="logo-mark" style="background:#fff;color:var(--dark)"><span>C</span></div>
+            <div>
+              <div style="font-weight:800;color:#fff">CARVIA MOTORS</div>
+              <div style="font-size:11px;letter-spacing:.12em;color:#94a3b8">FIND YOUR PERFECT CAR</div>
+            </div>
+          </div>
+          <p style="margin:12px 0;color:#94a3b8;font-size:13px">Quality Cars. Transparent Prices. Simple Buying.
+            Certified used cars across 8 cities with warranty and finance support.</p>
+            <div style="display:flex;gap:8px"><a href="https://www.instagram.com/__maaz__004?stkn=aHM2Ymkzc2FpNzA1" target="_blank" rel="noopener noreferrer" aria-label="Visit Instagram profile"
+              style="width:36px;height:36px;border-radius:999px;background:#1e293b;display:grid;place-items:center;color:#fff"><i
+                class="fa-brands fa-instagram"></i></a></div>
+        </div>
+        <div>
+          <h4>Quick Links</h4><a href="#" data-nav="home">Home</a><a href="#" data-nav="about">About</a><a
+            href="#" data-nav="sell">Sell Car</a><a href="#" data-nav="contact">Contact</a>
+        </div>
+        <div>
+          <h4>Popular Brands</h4><a href="#" data-brand="Maruti Suzuki">Maruti Suzuki</a><a href="#"
+            data-brand="Hyundai">Hyundai</a><a href="#" data-brand="Tata">Tata</a><a href="#"
+            data-brand="Toyota">Toyota</a><a href="#" data-brand="BMW">BMW</a>
+        </div>
+        <div>
+            <h4>Contact</h4><a><i class="fa-solid fa-location-dot"></i> Gurugram, Haryana</a><a href="tel:+919786404383"><i
+              class="fa-solid fa-phone"></i> +91 97864 04383</a><a href="mailto:mohammedmaaz4383@gmail.com"><i class="fa-solid fa-envelope"></i>
+            mohammedmaaz4383@gmail.com</a>
+          <div style="margin-top:10px;display:flex;gap:8px"><span class="pill"
+              style="background:#1e293b;color:#fff;border:1px solid #334155">LocalStorage</span><span class="pill"
+              style="background:var(--primary);color:#fff">No Backend</span></div>
+        </div>
+      </div>
+      <div class="footer-bottom"><span>© 2025 CARVIA MOTORS — Crafted for demo. Inspired by OLX Cars usability, original
+          branding & design.</span></div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"><i class="fa-solid fa-circle-check" style="color:#22c55e"></i><span
+      id="toastMsg">Done</span></div>
+
+  <!-- BOOKING MODAL -->
+  <div id="bookingModal" class="modal-overlay hidden">
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="bookingTitle" tabindex="-1">
+      <div class="modal-header">
+        <div>
+          <h3 id="bookingTitle" style="font-size:22px;letter-spacing:-.03em">Book a Test Drive</h3>
+          <p id="bookingIntro" style="color:var(--muted);font-size:14px;margin-top:4px">Share your details and our team will contact you to confirm your request.</p>
+        </div>
+        <button id="closeBookingModal" class="icon-btn" aria-label="Close modal"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      
+      <!-- Form State -->
+      <form id="bookingForm" class="modal-body">
+        <div class="field">
+          <label>Select Car *</label>
+          <input type="text" id="bkCar" required readonly style="background:#f1f5f9;cursor:not-allowed">
+          <input type="hidden" id="bkCarPrice">
+          <input type="hidden" id="bkCarName">
+        </div>
+        
+        <div class="grid2">
+          <div class="field">
+            <label>Full Name *</label>
+            <input type="text" id="bkName" required placeholder="Your full name" oninvalid="this.setCustomValidity('Please enter your name.')" oninput="this.setCustomValidity('')">
+          </div>
+          <div class="field">
+            <label>Phone Number *</label>
+            <input type="tel" id="bkPhone" required placeholder="10-digit number" pattern="[0-9]{10}" oninvalid="this.setCustomValidity('Please enter a valid phone number.')" oninput="this.setCustomValidity('')">
+          </div>
+        </div>
+        
+        <div class="field" style="margin-top:12px">
+          <label>Email Address *</label>
+          <input type="email" id="bkEmail" required placeholder="you@example.com" oninvalid="this.setCustomValidity('Please enter a valid email address.')" oninput="this.setCustomValidity('')">
+        </div>
+        
+        <div class="grid2" style="margin-top:12px">
+          <div class="field">
+            <label id="bkDateLabel">Preferred Date *</label>
+            <input type="date" id="bkDate" required oninvalid="this.setCustomValidity('Please select a date.')" oninput="this.setCustomValidity('')">
+          </div>
+          <div class="field">
+            <label id="bkTimeLabel">Preferred Time *</label>
+            <select id="bkTime" required oninvalid="this.setCustomValidity('Please select a preferred time.')" oninput="this.setCustomValidity('')">
+              <option value="">Select time</option>
+              <option>10:00 AM - 12:00 PM</option>
+              <option>12:00 PM - 02:00 PM</option>
+              <option>02:00 PM - 04:00 PM</option>
+              <option>04:00 PM - 06:00 PM</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="field" style="margin-top:12px">
+          <label>Location</label>
+          <input type="text" id="bkLocation" placeholder="Your address or preferred showroom">
+        </div>
+        
+        <div class="field" style="margin-top:12px">
+          <label>Message</label>
+          <textarea id="bkMessage" rows="3" placeholder="Any specific requirements..."></textarea>
+        </div>
+        
+        <div class="modal-footer" style="margin-top:20px">
+          <button type="submit" class="btn btn-primary" id="bkSubmitBtn" style="width:100%;font-size:16px">Send Test Drive Request</button>
+        </div>
+      </form>
+      
+      <!-- Success State -->
+      <div id="bookingSuccess" class="modal-body hidden" style="text-align:center;padding:40px 20px">
+        <div style="width:64px;height:64px;background:#dcfce7;color:#22c55e;border-radius:999px;display:grid;place-items:center;font-size:32px;margin:0 auto 20px">
+          <i class="fa-solid fa-check"></i>
+        </div>
+        <h3 id="bkSuccessTitle" style="font-size:24px;margin-bottom:8px">Request Sent Successfully!</h3>
+        <p style="color:var(--muted);margin-bottom:24px" id="bkSuccessMsg">Thank you. Your test drive enquiry has been received.</p>
+        
+        <div style="background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:16px;text-align:left;margin-bottom:24px">
+          <div style="display:grid;grid-template-columns:auto 1fr;gap:12px 16px;font-size:14px">
+            <div style="color:var(--muted)">Car:</div><div style="font-weight:600" id="bkSuccessCar"></div>
+            <div id="bkSuccessDateLabel" style="color:var(--muted)">Date:</div><div style="font-weight:600" id="bkSuccessDate"></div>
+            <div id="bkSuccessTimeLabel" style="color:var(--muted)">Time:</div><div style="font-weight:600" id="bkSuccessTime"></div>
+          </div>
+        </div>
+        
+        <p id="bkSuccessFollowup" style="color:var(--text);font-size:15px;margin-bottom:24px">Our team will contact you shortly to confirm your request.</p>
+        <button id="bkDoneBtn" class="btn btn-outline" style="width:100%">Done</button>
+      </div>
+      
+      <!-- Error State -->
+      <div id="bookingError" class="modal-body hidden" style="text-align:center;padding:40px 20px">
+        <div style="width:64px;height:64px;background:#fee2e2;color:#ef4444;border-radius:999px;display:grid;place-items:center;font-size:32px;margin:0 auto 20px">
+          <i class="fa-solid fa-xmark"></i>
+        </div>
+        <h3 style="font-size:24px;margin-bottom:12px">Unable to send request</h3>
+        <p id="bookingErrorMsg" style="color:var(--muted);margin-bottom:16px">Unable to send your request right now. Please try again or contact us directly.</p>
+        <a id="bookingMailLink" class="btn btn-outline hidden" href="mailto:mohammedmaaz4383@gmail.com" style="width:100%;margin-bottom:12px"><i class="fa-solid fa-envelope" aria-hidden="true"></i> Open prefilled email</a>
+        <div style="display:flex;gap:12px">
+          <button id="bkRetryBtn" class="btn btn-primary" style="flex:1">Try Again</button>
+          <a href="#" data-nav="contact" class="btn btn-outline" style="flex:1">Contact Us</a>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <style>
+    .modal-overlay { position:fixed;inset:0;background:rgba(15,23,42,0.6);backdrop-filter:blur(4px);z-index:9999;display:grid;place-items:center;padding:16px;overscroll-behavior:contain;transition: opacity 0.3s }
+    .modal-overlay.hidden { display:none }
+    .modal-content { background:#fff;width:min(600px, 92vw);max-height:90vh;border-radius:24px;box-shadow:var(--shadow2);display:flex;flex-direction:column;overflow:hidden;animation:fadeUp 0.3s ease }
+    .modal-header { padding:20px 24px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:flex-start;background:#f8fafc }
+    .modal-body { padding:24px;overflow-y:auto;overscroll-behavior:contain;flex:1 }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(20px) } to { opacity:1; transform:translateY(0) } }
+  </style>
+
+  <!-- EMAILJS CONFIGURATION
+    1. Create an EmailJS account at https://www.emailjs.com/
+    2. Connect your email service.
+    3. Create an email template matching the variables requested.
+    4. Set the recipient Gmail address.
+    5. Copy the Service ID, Template ID, and Public Key and add them below.
+    6. To send a customer confirmation, set up an Auto-Reply in the same EmailJS template.
+    7. Test the enquiry form!
+  -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script>
+    (function() {
+      window.EMAILJS_CONFIG = {
+        serviceId: "EMAILJS_SERVICE_ID",
+        templateId: "EMAILJS_TEMPLATE_ID",
+        publicKey: "EMAILJS_PUBLIC_KEY"
+      };
+      const { serviceId, templateId, publicKey } = window.EMAILJS_CONFIG;
+      window.EMAILJS_READY = Boolean(window.emailjs && serviceId !== "EMAILJS_SERVICE_ID" && templateId !== "EMAILJS_TEMPLATE_ID" && publicKey !== "EMAILJS_PUBLIC_KEY");
+      if (window.EMAILJS_READY) window.emailjs.init(publicKey);
+    })();
+  </script>
+
+  <script>
+    const LS_CARS = 'carvia_cars', LS_USERS = 'carvia_users', LS_USER = 'carvia_user';
+    const brands = ["Maruti Suzuki", "Hyundai", "Tata", "Mahindra", "Honda", "Toyota", "Kia", "BMW"];
+    const brandColors = { "Maruti Suzuki": "#0ea5e9", "Hyundai": "#0f172a", "Tata": "#1d4ed8", "Mahindra": "#dc2626", "Honda": "#ef4444", "Toyota": "#111827", "Kia": "#ff3b1f", "BMW": "#0f172a" };
+    const bodyTypes = [
+      { name: "SUV", icon: "fa-truck-monster", desc: "High ground clearance" },
+      { name: "Sedan", icon: "fa-car-side", desc: "Comfort & elegance" },
+      { name: "Hatchback", icon: "fa-car", desc: "City friendly" },
+      { name: "MPV", icon: "fa-van-shuttle", desc: "Family spacious" },
+      { name: "Coupe", icon: "fa-car-rear", desc: "Sporty look" },
+      { name: "Convertible", icon: "fa-wind", desc: "Open top thrill" }
+    ];
+    const fuels = ["Petrol", "Diesel", "CNG", "Electric", "Hybrid"], transmissions = ["Manual", "Automatic"], bodies = ["Hatchback", "Sedan", "SUV", "MPV", "Coupe", "Convertible"], locations = ["Delhi", "Mumbai", "Bangalore", "Pune", "Hyderabad", "Chennai", "Jaipur", "Kolkata", "Ahmedabad"];
+    const defaultCars = [
+      {
+        id: 1,
+        brand: "Maruti Suzuki",
+        model: "Swift ZXI",
+        year: 2021,
+        price: 585000,
+        km: 38000,
+        fuel: "Petrol",
+        transmission: "Manual",
+        body: "Hatchback",
+        location: "Delhi",
+        image: "images/cars/swift-zxi.webp",
+        gallery: [
+          "images/cars/swift-zxi.webp",
+          "https://upload.wikimedia.org/wikipedia/commons/8/86/Maruti_Suzuki_Swift_2093.JPG",
+          "https://upload.wikimedia.org/wikipedia/commons/4/44/Swift_Dzire_dashboard.jpg"
+        ],
+        featured: true,
+        owners: 1,
+        color: "White",
+        desc: "Single owner, company serviced, new tyres, insurance till 2026."
+      },
+      {
+        id: 2,
+        brand: "Hyundai",
+        model: "Creta SX",
+        year: 2020,
+        price: 1125000,
+        km: 42000,
+        fuel: "Diesel",
+        transmission: "Automatic",
+        body: "SUV",
+        location: "Mumbai",
+        image: "images/cars/creta-sx.jpg",
+        gallery: [
+          "images/cars/creta-sx.jpg",
+          "https://upload.wikimedia.org/wikipedia/commons/6/61/2024_Hyundai_Creta_N_Line_1.5_T-GDi_%28India%29_front_view.png",
+          "https://upload.wikimedia.org/wikipedia/commons/b/be/Hyundai_Creta_1.6_GLS_2019.jpg"
+        ],
+        featured: true,
+        owners: 1,
+        color: "White",
+        desc: "Panoramic sunroof, ventilated seats, full service history."
+      },
+      {
+        id: 3,
+        brand: "Tata",
+        model: "Nexon XZ+",
+        year: 2022,
+        price: 895000,
+        km: 25000,
+        fuel: "Petrol",
+        transmission: "Manual",
+        body: "SUV",
+        location: "Pune",
+        image: "images/cars/nexon-xz-plus.jpg",
+        gallery: [
+          "images/cars/nexon-xz-plus.jpg",
+          "https://upload.wikimedia.org/wikipedia/commons/e/ea/2020_Tata_Nexon_EV_%28India%29_front_view.png",
+          "https://upload.wikimedia.org/wikipedia/commons/8/88/2018_Tata_Nexon_XM.jpg"
+        ],
+        featured: true,
+        owners: 1,
+        color: "Blue",
+        desc: "5-star safety, infotainment, reverse camera, certified."
+      },
+      {
+        id: 4,
+        brand: "Mahindra",
+        model: "Thar LX",
+        year: 2023,
+        price: 1550000,
+        km: 15000,
+        fuel: "Diesel",
+        transmission: "Manual",
+        body: "SUV",
+        location: "Jaipur",
+        image: "images/cars/thar-lx.jpg",
+        gallery: [
+          "images/cars/thar-lx.jpg",
+          "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/Thar/10745/1697697308167/front-left-side-47.jpg",
+          "https://upload.wikimedia.org/wikipedia/commons/f/fc/Mahindra_Thar_in_maroon%2C_rear_right.jpg"
+        ],
+        featured: true,
+        owners: 1,
+        color: "Grey",
+        desc: "4x4, hard top, like new, under warranty."
+      },
+      {
+        id: 5,
+        brand: "Honda",
+        model: "City VX",
+        year: 2019,
+        price: 875000,
+        km: 52000,
+        fuel: "Petrol",
+        transmission: "Automatic",
+        body: "Sedan",
+        location: "Bangalore",
+        image: "https://upload.wikimedia.org/wikipedia/commons/7/7f/Honda_City_1.5_i-VTEC_V_%28VIII%2C_Facelift%29_%E2%80%93_h_22032025.jpg",
+        gallery: [
+          "https://upload.wikimedia.org/wikipedia/commons/7/7f/Honda_City_1.5_i-VTEC_V_%28VIII%2C_Facelift%29_%E2%80%93_h_22032025.jpg",
+          "https://upload.wikimedia.org/wikipedia/commons/1/16/Honda_City_1.5_LX_2016_%2833755304134%29.jpg",
+          "https://upload.wikimedia.org/wikipedia/commons/6/68/HONDA_CITY_%28GM2%2C3%29_China_%284%29.jpg"
+        ],
+        featured: false,
+        owners: 2,
+        color: "Silver",
+        desc: "Sunroof, paddle shifters, well maintained."
+      },
+      {
+        id: 6,
+        brand: "Toyota",
+        model: "Fortuner 4x2",
+        year: 2021,
+        price: 3150000,
+        km: 34000,
+        fuel: "Diesel",
+        transmission: "Automatic",
+        body: "SUV",
+        location: "Delhi",
+        image: "images/cars/fortuner-4x2.jpg",
+        gallery: [
+          "images/cars/fortuner-4x2.jpg",
+          "https://upload.wikimedia.org/wikipedia/commons/b/be/2020_Toyota_Fortuner_2.4_VRZ_TRD_Sportivo_4x2_GUN165R_%2820220215%29.jpg",
+          "https://upload.wikimedia.org/wikipedia/commons/a/ad/Toyota_Fortuner_India.jpg"
+        ],
+        featured: true,
+        owners: 1,
+        color: "Black",
+        desc: "Top model, 7 seater, service at Toyota."
+      },
+      {
+        id: 7,
+        brand: "Kia",
+        model: "Seltos HTX",
+        year: 2022,
+        price: 1320000,
+        km: 28000,
+        fuel: "Petrol",
+        transmission: "Automatic",
+        body: "SUV",
+        location: "Hyderabad",
+        image: "images/cars/seltos-htx.webp",
+        gallery: [
+          "images/cars/seltos-htx.webp",
+          "https://upload.wikimedia.org/wikipedia/commons/6/67/Kia_Seltos.png"
+        ],
+        featured: true,
+        owners: 1,
+        color: "Grey",
+        desc: "Bose audio, connected car tech, single owner."
+      },
+      {
+        id: 8,
+        brand: "BMW",
+        model: "3 Series 330i",
+        year: 2020,
+        price: 2850000,
+        km: 30000,
+        fuel: "Petrol",
+        transmission: "Automatic",
+        body: "Sedan",
+        location: "Mumbai",
+        image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=900&auto=format&fit=crop&q=80",
+        gallery: [
+          "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=900&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=900&auto=format&fit=crop&q=80",
+          "https://images.unsplash.com/photo-1556189250-72ba954cfc2b?w=900&auto=format&fit=crop&q=80"
+        ],
+        featured: false,
+        owners: 1,
+        color: "Blue",
+        desc: "Luxury line, service package till 2026."
+      },
+      {
+        id: 9,
+        brand: "Maruti Suzuki",
+        model: "Baleno Alpha",
+        year: 2021,
+        price: 695000,
+        km: 31000,
+        fuel: "Petrol",
+        transmission: "Manual",
+        body: "Hatchback",
+        location: "Ahmedabad",
+        image: "images/cars/baleno-alpha.jpg",
+        gallery: [
+          "images/cars/baleno-alpha.jpg",
+          "https://upload.wikimedia.org/wikipedia/commons/9/90/2022_Maruti_Suzuki_Baleno_Alpha_%28India%29_front_view.jpg",
+          "https://upload.wikimedia.org/wikipedia/commons/4/43/2022_Maruti_Suzuki_Baleno_Alpha_%28India%29_interior.jpg"
+        ],
+        featured: false,
+        owners: 1,
+        color: "Nexa Blue",
+        desc: "Alpha top variant, projector headlamps."
+      },
+      {
+        id: 10,
+        brand: "Hyundai",
+        model: "Verna SX",
+        year: 2020,
+        price: 845000,
+        km: 46000,
+        fuel: "Petrol",
+        transmission: "Manual",
+        body: "Sedan",
+        location: "Chennai",
+        image: "images/cars/verna-sx.jpg",
+        gallery: [
+          "images/cars/verna-sx.jpg",
+          "https://upload.wikimedia.org/wikipedia/commons/4/40/Hyundai_Verna_%28Accent%29_Rear_Indian_Model.jpg",
+          "https://upload.wikimedia.org/wikipedia/commons/a/a2/2020_Hyundai_Verna_SX%28O%29_1.5_Diesel_interior_%28India%29.png"
+        ],
+        featured: false,
+        owners: 1,
+        color: "Red",
+        desc: "Ventilated seats, wireless charging."
+      },
+      {
+        id: 11,
+        brand: "Tata",
+        model: "Harrier XZ",
+        year: 2021,
+        price: 1450000,
+        km: 38000,
+        fuel: "Diesel",
+        transmission: "Manual",
+        body: "SUV",
+        location: "Delhi",
+        image: "images/cars/tata-harrier-xz.jpg",
+        gallery: [
+          "images/cars/tata-harrier-xz.jpg",
+          "https://upload.wikimedia.org/wikipedia/commons/8/87/Tata_Buzzard_Sport%2C_GIMS_2019%2C_Le_Grand-Saconnex_%28GIMS0651%29.jpg",
+          "https://upload.wikimedia.org/wikipedia/commons/6/61/Tata_Buzzard_Genf_2019_1Y7A5791.jpg"
+        ],
+        featured: false,
+        owners: 1,
+        color: "Dark Grey",
+        desc: "Panoramic sunroof, JBL audio."
+      },
+      {
+        id: 12,
+        brand: "Mahindra",
+        model: "Scorpio S11",
+        year: 2019,
+        price: 1150000,
+        km: 62000,
+        fuel: "Diesel",
+        transmission: "Manual",
+        body: "SUV",
+        location: "Lucknow",
+        image: "https://upload.wikimedia.org/wikipedia/commons/0/0f/Scorpio_Front_view.jpg",
+        gallery: [
+          "https://upload.wikimedia.org/wikipedia/commons/0/0f/Scorpio_Front_view.jpg"
+        ],
+        featured: false,
+        owners: 2,
+        color: "Black",
+        desc: "Powerful mHawk engine, well kept."
+      },
+      {
+        id: 13,
+        brand: "Honda",
+        model: "Amaze VX",
+        year: 2020,
+        price: 625000,
+        km: 40000,
+        fuel: "Petrol",
+        transmission: "Manual",
+        body: "Sedan",
+        location: "Pune",
+        image: "https://upload.wikimedia.org/wikipedia/commons/f/f4/Honda_Amaze_%28front%29.png",
+        gallery: [
+          "https://upload.wikimedia.org/wikipedia/commons/f/f4/Honda_Amaze_%28front%29.png",
+          "https://upload.wikimedia.org/wikipedia/commons/7/7f/Honda_City_1.5_i-VTEC_V_%28VIII%2C_Facelift%29_%E2%80%93_h_22032025.jpg"
+        ],
+        featured: false,
+        owners: 1,
+        color: "White",
+        desc: "Compact sedan, excellent mileage."
+      },
+      {
+        id: 14,
+        brand: "Toyota",
+        model: "Innova Crysta",
+        year: 2022,
+        price: 2250000,
+        km: 27000,
+        fuel: "Diesel",
+        transmission: "Manual",
+        body: "MPV",
+        location: "Bangalore",
+        image: "https://www.jazzycars.in/wp-content/uploads/2022/04/WhatsApp-Image-2022-04-27-at-3.41.20-PM-798x466.jpeg",
+        gallery: [
+          "https://www.jazzycars.in/wp-content/uploads/2022/04/WhatsApp-Image-2022-04-27-at-3.41.20-PM-798x466.jpeg",
+          "https://upload.wikimedia.org/wikipedia/commons/c/c6/2020_Toyota_Fortuner_2.8_Legender_4WD.jpg"
+        ],
+        featured: false,
+        owners: 1,
+        color: "Silver",
+        desc: "8 seater, captain seats, immaculate."
+      },
+      {
+        id: 15,
+        brand: "Kia",
+        model: "Sonet GTX+",
+        year: 2023,
+        price: 1120000,
+        km: 12000,
+        fuel: "Petrol",
+        transmission: "Manual",
+        body: "SUV",
+        location: "Delhi",
+        image: "https://upload.wikimedia.org/wikipedia/commons/b/b1/Kia_Sonet_front_view_%28India%29_01.png",
+        gallery: [
+          "https://upload.wikimedia.org/wikipedia/commons/b/b1/Kia_Sonet_front_view_%28India%29_01.png",
+          "https://upload.wikimedia.org/wikipedia/commons/a/a2/Kia_Sonet_interior_%28India%29.png",
+          "https://upload.wikimedia.org/wikipedia/commons/7/77/Kia_Seltos_car_Htx_model_%28cropped%29.jpg"
+        ],
+        featured: false,
+        owners: 1,
+        color: "Red",
+        desc: "Almost new, under company warranty."
+      },
+      {
+        id: 16,
+        brand: "BMW",
+        model: "X1 sDrive20d",
+        year: 2021,
+        price: 3250000,
+        km: 26000,
+        fuel: "Diesel",
+        transmission: "Automatic",
+        body: "SUV",
+        location: "Mumbai",
+        image: "images/cars/bmw-x1-sdrive20d.jpg",
+        gallery: [
+          "images/cars/bmw-x1-sdrive20d.jpg",
+          "https://upload.wikimedia.org/wikipedia/commons/3/36/2016_BMW_X1_xDrive20d_xLine_Automatic_2.0_Rear.jpg"
+        ],
+        featured: true,
+        owners: 1,
+        color: "White",
+        desc: "xLine, premium interiors, low run."
+      },
+      {
+        id: 17,
+        brand: "Maruti Suzuki",
+        model: "Brezza ZXI",
+        year: 2022,
+        price: 985000,
+        km: 22000,
+        fuel: "Petrol",
+        transmission: "Manual",
+        body: "SUV",
+        location: "Delhi",
+        image: "https://stimg.cardekho.com/images/car-images/large/Maruti/Brezza/13709/1785136477287/Vivacious-Orange_a74c1f.jpg",
+        gallery: [
+          "https://stimg.cardekho.com/images/car-images/large/Maruti/Brezza/13709/1785136477287/Vivacious-Orange_a74c1f.jpg",
+          "https://upload.wikimedia.org/wikipedia/commons/6/69/2022_Maruti_Suzuki_Baleno_Alpha_%28India%29_front_view_02.jpg"
+        ],
+        featured: false,
+        owners: 1,
+        color: "Orange",
+        desc: "Smart hybrid, new shape."
+      },
+      {
+        id: 18,
+        brand: "Hyundai",
+        model: "i20 Asta",
+        year: 2021,
+        price: 735000,
+        km: 33000,
+        fuel: "Petrol",
+        transmission: "Manual",
+        body: "Hatchback",
+        location: "Kolkata",
+        image: "images/cars/hyundai-i20-asta-silver.jpg",
+        gallery: [
+          "images/cars/hyundai-i20-asta-silver.jpg",
+          "https://upload.wikimedia.org/wikipedia/commons/9/91/2025_Hyundai_Creta_N_Line.jpg"
+        ],
+        featured: false,
+        owners: 1,
+        color: "White",
+        desc: "Sunroof, Bose system, top variant."
+      }
+    ];
+    function getCars() { return JSON.parse(localStorage.getItem(LS_CARS) || 'null') || defaultCars }
+    function saveCars(c) { localStorage.setItem(LS_CARS, JSON.stringify(c)) }
+    function getUsers() { return JSON.parse(localStorage.getItem(LS_USERS) || 'null') || [{ name: "Demo User", email: "demo@carvia.com", password: "demo123", phone: "9876543210" }] }
+    function saveUsers(u) { localStorage.setItem(LS_USERS, JSON.stringify(u)) }
+    function getCurrentUser() { return JSON.parse(localStorage.getItem(LS_USER) || 'null') }
+    function formatPrice(p) { if (p >= 10000000) return '₹ ' + (p / 10000000).toFixed(2) + ' Cr'; if (p >= 100000) return '₹ ' + (p / 100000).toFixed(2) + ' Lakh'; return '₹ ' + p.toLocaleString('en-IN') }
+    const saleDiscount = 0.20;
+    function salePrice(car) { return Math.round(car.price * (1 - saleDiscount) / 100) * 100 }
+    function rentalRate(car) { return Math.max(900, Math.round(salePrice(car) * 0.0025 / 100) * 100) }
+    function formatKm(k) { return k.toLocaleString('en-IN') + ' KM' }
+    let currentCarId = null;
+    let currentRequestType = 'test-drive';
+    let bookingReturnFocus = null;
+    function seed() {
+      if (!localStorage.getItem(LS_CARS)) saveCars(defaultCars);
+      if (!localStorage.getItem(LS_USERS)) saveUsers(getUsers());
+    }
+    function toast(msg, ok = true) {
+      const t = document.getElementById('toast'), m = document.getElementById('toastMsg');
+      m.textContent = msg; t.classList.add('show'); t.querySelector('i').className = ok ? 'fa-solid fa-circle-check' : 'fa-solid fa-triangle-exclamation';
+      t.querySelector('i').style.color = ok ? '#22c55e' : '#f59e0b';
+      setTimeout(() => t.classList.remove('show'), 2200);
+    }
+    function updateCounts() {
+      const totalCars = document.getElementById('totalCars');
+      if (totalCars) totalCars.textContent = getCars().length;
+    }
+    function syncHeroVideo(pageName) {
+      const video = document.getElementById('heroVideo');
+      const audioToggle = document.getElementById('heroAudioToggle');
+      if (!video) return;
+
+      if (pageName === 'home') {
+        const playback = video.play();
+        if (playback) playback.catch(() => {});
+      } else {
+        video.pause();
+        video.currentTime = 0;
+        video.muted = true;
+      }
+
+      if (audioToggle) {
+        const soundOn = !video.muted;
+        audioToggle.setAttribute('aria-pressed', String(soundOn));
+        audioToggle.setAttribute('aria-label', soundOn ? 'Turn video sound off' : 'Turn video sound on');
+        audioToggle.title = soundOn ? 'Turn video sound off' : 'Turn video sound on';
+        audioToggle.innerHTML = `<i class="fa-solid ${soundOn ? 'fa-volume-high' : 'fa-volume-xmark'}" aria-hidden="true"></i>`;
+      }
+    }
+    function showPage(name) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      const el = document.getElementById('page-' + name);
+      if (el) el.classList.add('active');
+      const bookingModal = document.getElementById('bookingModal');
+      if (bookingModal && !bookingModal.classList.contains('hidden')) {
+        bookingModal.classList.add('hidden');
+        document.body.classList.remove('modal-open');
+      }
+      syncHeroVideo(name);
+      document.querySelectorAll('.nav-links a').forEach(a => {
+        const isCurrent = a.dataset.nav === name;
+        a.classList.toggle('active', isCurrent);
+        if (isCurrent) a.setAttribute('aria-current', 'page');
+        else a.removeAttribute('aria-current');
+      });
+      document.getElementById('mobileDrawer').style.display = 'none';
+      document.body.classList.remove('drawer-open');
+      document.getElementById('hamburger').setAttribute('aria-expanded', 'false');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (name === 'cars') renderCars();
+      if (name === 'home') renderFeatured();
+    }
+    function carCard(c) {
+      return `<div class="car-card">
+    <div class="car-img"><img src="${c.image}" alt="${c.brand} ${c.model}" onerror="this.style.display='none'">
+      <span class="car-image-name">${c.brand} ${c.model}</span>
+      ${c.featured ? '<span class="badge-featured">FEATURED</span>' : ''}
+      <span style="position:absolute;bottom:10px;left:10px;background:rgba(15,23,42,.85);color:#fff;padding:5px 8px;border-radius:999px;font-size:11px;font-weight:700"><i class="fa-solid fa-location-dot"></i> ${c.location}</span>
+    </div>
+    <div class="car-body">
+      <div class="car-title">${c.brand} ${c.model}</div>
+      <div class="car-meta"><span><i class="fa-regular fa-calendar"></i> ${c.year}</span><span><i class="fa-solid fa-road"></i> ${formatKm(c.km)}</span><span><i class="fa-solid fa-gas-pump"></i> ${c.fuel}</span><span><i class="fa-solid fa-gear"></i> ${c.transmission}</span></div>
+      <div class="price-row"><div class="price"><span class="price-offer">ALWAYS 20% OFF</span><div><span class="price-current">${formatPrice(salePrice(c))}</span><del class="price-original">${formatPrice(c.price)}</del></div><small>${c.body} • ${c.color}</small><span class="rental-rate">Est. rent ${formatPrice(rentalRate(c))} / day</span></div></div>
+      <div class="card-actions"><button class="btn btn-primary" data-details="${c.id}"><i class="fa-regular fa-eye"></i> Details</button><button class="btn btn-outline" data-rent="${c.id}" aria-label="Enquire to rent ${c.brand} ${c.model}"><i class="fa-solid fa-key"></i> Rent</button></div>
+    </div>
+  </div>`
+    }
+    function renderBrands() {
+      const g = document.getElementById('brandsGrid');
+      g.innerHTML = brands.map(b => `<div class="brand-card" data-brand="${b}"><div class="brand-icon" style="background:${brandColors[b]}">${b.split(' ').map(w => w[0]).join('').slice(0, 3)}</div><span>${b}</span><div style="font-size:11px;color:var(--muted);margin-top:4px">${Math.floor(Math.random() * 40 + 12)} Cars</div></div>`).join('');
+    }
+
+    function renderFilterChips() {
+      const bf = document.getElementById('brandFilters'); bf.innerHTML = brands.map(b => `<button class="chip" data-filter="brand" data-value="${b}">${b}</button>`).join('');
+      const ff = document.getElementById('fuelFilters'); ff.innerHTML = fuels.map(f => `<button class="chip" data-filter="fuel" data-value="${f}">${f}</button>`).join('');
+      const tf = document.getElementById('transFilters'); tf.innerHTML = transmissions.map(t => `<button class="chip" data-filter="trans" data-value="${t}">${t}</button>`).join('');
+      const bof = document.getElementById('bodyFilters'); bof.innerHTML = bodies.map(b => `<button class="chip" data-filter="body" data-value="${b}">${b}</button>`).join('');
+      const lf = document.getElementById('locFilters'); lf.innerHTML = locations.map(l => `<button class="chip" data-filter="loc" data-value="${l}">${l}</button>`).join('');
+    }
+    let activeFilters = { brand: [], fuel: [], trans: [], body: [], loc: [] };
+    function toggleChip(filter, value, el) {
+      const arr = activeFilters[filter];
+      const idx = arr.indexOf(value);
+      if (idx > -1) { arr.splice(idx, 1); el.classList.remove('active') } else { arr.push(value); el.classList.add('active') }
+      renderCars();
+    }
+    function getFilteredCars() {
+      let cars = [...getCars()];
+      const q = document.getElementById('carsSearch').value.toLowerCase().trim();
+      const modelQ = document.getElementById('modelFilter').value.toLowerCase().trim();
+      const pMin = parseInt(document.getElementById('priceMin').value) || 0;
+      const pMax = parseInt(document.getElementById('priceMax').value) || Infinity;
+      const yMin = parseInt(document.getElementById('yearMin').value) || 0;
+      const yMax = parseInt(document.getElementById('yearMax').value) || 9999;
+      const kmMax = parseInt(document.getElementById('kmFilter').value) || Infinity;
+      cars = cars.filter(c => {
+        if (q && !(c.brand.toLowerCase().includes(q) || c.model.toLowerCase().includes(q) || c.location.toLowerCase().includes(q))) return false;
+        if (modelQ && !c.model.toLowerCase().includes(modelQ)) return false;
+        if (activeFilters.brand.length && !activeFilters.brand.includes(c.brand)) return false;
+        if (activeFilters.fuel.length && !activeFilters.fuel.includes(c.fuel)) return false;
+        if (activeFilters.trans.length && !activeFilters.trans.includes(c.transmission)) return false;
+        if (activeFilters.body.length && !activeFilters.body.includes(c.body)) return false;
+        if (activeFilters.loc.length && !activeFilters.loc.includes(c.location)) return false;
+        const discountedPrice = salePrice(c);
+        if (discountedPrice < pMin || discountedPrice > pMax) return false;
+        if (c.year < yMin || c.year > yMax) return false;
+        if (c.km > kmMax) return false;
+        return true;
+      });
+      const sort = document.getElementById('sortSelect').value;
+      if (sort === 'newest') cars.sort((a, b) => b.year - a.year);
+      if (sort === 'oldest') cars.sort((a, b) => a.year - b.year);
+      if (sort === 'priceLow') cars.sort((a, b) => salePrice(a) - salePrice(b));
+      if (sort === 'priceHigh') cars.sort((a, b) => salePrice(b) - salePrice(a));
+      if (sort === 'kmLow') cars.sort((a, b) => a.km - b.km);
+      return cars;
+    }
+    function renderCars() {
+      const cars = getFilteredCars();
+      const grid = document.getElementById('carsGrid');
+      const empty = document.getElementById('carsEmpty');
+      if (cars.length === 0) { grid.innerHTML = ''; empty.classList.remove('hidden') } else { empty.classList.add('hidden'); grid.innerHTML = cars.map(carCard).join('') }
+    }
+    function renderFeatured() {
+      const cars = getCars().filter(c => c.featured).slice(0, 6);
+      document.getElementById('featuredGrid').innerHTML = cars.map(carCard).join('');
+    }
+    function openBookingRequest(car, requestType) {
+      const isRental = requestType === 'rental';
+      currentRequestType = isRental ? 'rental' : 'test-drive';
+      document.getElementById('bookingSuccess').classList.add('hidden');
+      document.getElementById('bookingError').classList.add('hidden');
+      document.getElementById('bookingForm').classList.remove('hidden');
+      document.getElementById('bookingTitle').textContent = isRental ? 'Request a Rental' : 'Book a Test Drive';
+      document.getElementById('bookingIntro').textContent = isRental
+        ? 'Send a rental request; our team will confirm availability and the final rate.'
+        : 'Share your details and our team will contact you to confirm your test drive.';
+      document.getElementById('bkCar').value = isRental
+        ? `${car.brand} ${car.model} - estimated ${formatPrice(rentalRate(car))} / day`
+        : `${car.brand} ${car.model} - offer ${formatPrice(salePrice(car))}`;
+      document.getElementById('bkCarName').value = `${car.brand} ${car.model} (${currentRequestType})`;
+      document.getElementById('bkCarPrice').value = isRental
+        ? `${formatPrice(rentalRate(car))} / day`
+        : formatPrice(salePrice(car));
+      document.getElementById('bkDateLabel').textContent = isRental ? 'Rental Start Date *' : 'Preferred Date *';
+      document.getElementById('bkTimeLabel').textContent = isRental ? 'Rental Duration *' : 'Preferred Time *';
+      document.getElementById('bkTime').innerHTML = isRental
+        ? '<option value="">Select duration</option><option>1 day</option><option>2 days</option><option>3 days</option><option>1 week</option><option>1 month</option>'
+        : '<option value="">Select time</option><option>10:00 AM - 12:00 PM</option><option>12:00 PM - 02:00 PM</option><option>02:00 PM - 04:00 PM</option><option>04:00 PM - 06:00 PM</option>';
+      document.getElementById('bkTime').value = '';
+      document.getElementById('bkMessage').placeholder = isRental
+        ? 'Tell us your pickup location or rental requirements...'
+        : 'Any specific requirements...';
+      document.getElementById('bkSubmitBtn').textContent = isRental ? 'Send Rental Request' : 'Send Test Drive Request';
+      document.getElementById('bkSuccessTitle').textContent = isRental ? 'Rental Request Sent!' : 'Test Drive Request Sent!';
+      document.getElementById('bkSuccessDateLabel').textContent = isRental ? 'Start date:' : 'Date:';
+      document.getElementById('bkSuccessTimeLabel').textContent = isRental ? 'Duration:' : 'Time:';
+      document.getElementById('bkSuccessFollowup').textContent = isRental
+        ? 'Our team will contact you to confirm car availability and the final rental rate.'
+        : 'Our team will contact you shortly to confirm your test drive.';
+      document.getElementById('bkDate').min = new Date().toISOString().split('T')[0];
+      bookingReturnFocus = document.activeElement;
+      document.body.classList.add('modal-open');
+      document.getElementById('bookingModal').classList.remove('hidden');
+      document.getElementById('closeBookingModal').focus();
+    }
+    function renderDetails(id) {
+      const c = getCars().find(x => x.id === id); if (!c) return;
+      currentCarId = id;
+      const similar = getCars().filter(x => x.brand === c.brand && x.id !== id).slice(0, 3);
+      const galleryList = (c.gallery && c.gallery.length) ? c.gallery : [c.image];
+      document.getElementById('carDetails').innerHTML = `
+    <div class="detail-layout">
+      <div class="gallery">
+        <div class="gallery-main"><img id="mainImg" src="${c.image}" alt="${c.brand} ${c.model}" onerror="this.style.display='none'"></div>
+        <div class="thumbs" id="thumbs">${galleryList.map((src, i) => `<img src="${src}" class="${i === 0 ? 'active' : ''}" data-thumb="${src}" onerror="this.style.display='none'">`).join('')}</div>
+      </div>
+      <div>
+        <div class="form-card">
+          <div style="display:flex;gap:8px;flex-wrap:wrap"><span class="pill" style="background:#fff1f0;color:var(--primary);border:1px solid #ffd5cf">${c.featured ? 'FEATURED' : 'VERIFIED'}</span><span class="pill">${c.body}</span><span class="pill">${c.location}</span></div>
+          <h2 style="font-size:26px;margin:10px 0 4px">${c.brand} ${c.model}</h2>
+          <div style="color:var(--muted);font-size:13px">${c.year} • ${formatKm(c.km)} • ${c.fuel} • ${c.transmission}</div>
+          <div style="display:flex;align-items:end;gap:12px;flex-wrap:wrap;margin:14px 0"><div><span class="price-offer">ALWAYS 20% OFF</span><div style="font-size:28px;font-weight:800">${formatPrice(salePrice(c))} <del class="price-original">${formatPrice(c.price)}</del></div><div style="margin-top:5px;color:#166534;font-size:13px;font-weight:700">Estimated rent ${formatPrice(rentalRate(c))} / day</div></div><div style="color:var(--muted);font-size:12px">Sale price • Rental estimate subject to availability</div></div>
+          <div class="specs"><div class="spec"><label>Year</label><strong>${c.year}</strong></div><div class="spec"><label>KM Driven</label><strong>${formatKm(c.km)}</strong></div><div class="spec"><label>Fuel</label><strong>${c.fuel}</strong></div><div class="spec"><label>Transmission</label><strong>${c.transmission}</strong></div><div class="spec"><label>Body Type</label><strong>${c.body}</strong></div></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px"><button class="btn btn-primary" id="enquireBtn"><i class="fa-solid fa-car-side"></i> Test Drive</button><button class="btn btn-outline" id="rentCarBtn"><i class="fa-solid fa-key"></i> Rent This Car</button></div>
+          <div style="display:flex;gap:8px;margin-top:8px"><button class="btn btn-outline" style="flex:1" id="emiToggle">EMI Calculator</button><button class="btn btn-outline" style="flex:1" data-nav="contact">Contact Seller</button></div>
+          <div id="emiBox" class="hidden" style="margin-top:12px;background:#f8fafc;border:1px solid var(--line);border-radius:14px;padding:12px">
+            <div style="font-weight:700;margin-bottom:8px">EMI Calculator (7.99% • 5 years)</div>
+            <div class="grid2"><div class="field"><label>Down Payment</label><input id="emiDown" type="number" value="${Math.round(salePrice(c) * 0.2)}"></div><div class="field"><label>Tenure (months)</label><input id="emiTenure" type="number" value="60"></div></div>
+            <div style="margin-top:10px;font-weight:800" id="emiResult"></div>
+          </div>
+          <p style="margin-top:12px;color:var(--muted);font-size:13px">${c.desc}</p>
+          <div style="margin-top:12px;display:flex;gap:8px;align-items:center"><img src="https://i.pravatar.cc/100?img=8" style="width:36px;height:36px;border-radius:999px"><div><strong style="font-size:13px">CARVIA Certified Seller</strong><div style="font-size:12px;color:var(--muted)">${c.location} • Verified • RC Available</div></div><span style="margin-left:auto;color:#22c55e;font-size:12px;font-weight:700"><i class="fa-solid fa-circle-check"></i> Trusted</span></div>
+        </div>
+      </div>
+    </div>
+    ${similar.length ? `<div style="margin-top:18px"><h4>Similar Cars</h4><div class="cars-grid" style="margin-top:12px">${similar.map(carCard).join('')}</div></div>` : ''}
+  `;
+      document.querySelectorAll('[data-thumb]').forEach(img => {
+        img.addEventListener('click', () => { document.getElementById('mainImg').src = img.dataset.thumb; document.querySelectorAll('[data-thumb]').forEach(i => i.classList.remove('active')); img.classList.add('active') })
+      });
+      document.getElementById('emiToggle').onclick = () => {
+        const b = document.getElementById('emiBox'); b.classList.toggle('hidden'); calcEMI();
+      };
+      document.getElementById('rentCarBtn').onclick = () => openBookingRequest(c, 'rental');
+      ['emiDown', 'emiTenure'].forEach(id => {
+        const el = document.getElementById(id); if (el) el.addEventListener('input', calcEMI);
+      });
+      function calcEMI() {
+        const price = salePrice(c), down = parseInt(document.getElementById('emiDown').value) || 0, tenure = parseInt(document.getElementById('emiTenure').value) || 60;
+        const loan = price - down, r = 0.0799 / 12, n = tenure;
+        const emi = r === 0 ? loan / n : loan * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
+        document.getElementById('emiResult').textContent = 'Estimated EMI: ₹ ' + Math.round(emi).toLocaleString('en-IN') + '/month';
+      }
+      document.getElementById('enquireBtn').onclick = () => openBookingRequest(c, 'test-drive');
+    }
+
+    function bind() {
+      const drawer = document.getElementById('mobileDrawer');
+      const heroVideo = document.getElementById('heroVideo');
+      const heroAudioToggle = document.getElementById('heroAudioToggle');
+      if (heroVideo && heroAudioToggle) {
+        heroAudioToggle.addEventListener('click', () => {
+          heroVideo.muted = !heroVideo.muted;
+          syncHeroVideo('home');
+          if (!heroVideo.muted) {
+            const playback = heroVideo.play();
+            if (playback) playback.catch(() => {
+              heroVideo.muted = true;
+              syncHeroVideo('home');
+            });
+          }
+        });
+      }
+      const closeMobileDrawer = () => {
+        if (drawer) drawer.style.display = 'none';
+        document.body.classList.remove('drawer-open');
+        document.getElementById('hamburger').setAttribute('aria-expanded', 'false');
+      };
+      const toggleMobileDrawer = () => {
+        if (!drawer) return;
+        const isOpening = drawer.style.display !== 'block';
+        drawer.style.display = isOpening ? 'block' : 'none';
+        document.body.classList.toggle('drawer-open', isOpening);
+        document.getElementById('hamburger').setAttribute('aria-expanded', String(isOpening));
+        if (isOpening) document.querySelector('#mobileNavLinks [data-nav]')?.focus();
+      };
+
+      document.querySelectorAll('[data-nav]').forEach(el => el.addEventListener('click', e => {
+        e.preventDefault();
+        closeMobileDrawer();
+        const target = el.dataset.nav;
+        if (target === 'login' && getCurrentUser()) {
+          if (confirm('Logout?')) { localStorage.removeItem(LS_USER); updateCounts(); toast('Logged out'); showPage('home') }
+          return;
+        }
+        showPage(target);
+        if (el.dataset.brand) {
+          activeFilters.brand = [el.dataset.brand];
+          document.querySelectorAll('[data-filter="brand"]').forEach(ch => ch.classList.toggle('active', ch.dataset.value === el.dataset.brand));
+          showPage('cars'); renderCars();
+        }
+      }));
+      // Removed userBtn click listener
+      const hamburger = document.getElementById('hamburger');
+      if (hamburger) hamburger.onclick = toggleMobileDrawer;
+      const closeDrawerBtn = document.getElementById('closeDrawer');
+      if (closeDrawerBtn) closeDrawerBtn.onclick = () => {
+        closeMobileDrawer();
+        hamburger?.focus();
+      };
+      const drawerBg = document.querySelector('.drawer-bg');
+      if (drawerBg) drawerBg.onclick = () => {
+        closeMobileDrawer();
+        hamburger?.focus();
+      };
+      document.addEventListener('keydown', event => {
+        if (drawer?.style.display !== 'block') return;
+        if (event.key === 'Escape') {
+          closeMobileDrawer();
+          hamburger?.focus();
+          return;
+        }
+        if (event.key !== 'Tab') return;
+        const focusable = [...drawer.querySelectorAll('button:not(:disabled), a[href]')]
+          .filter(element => element.getClientRects().length > 0);
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      });
+      renderBrands(); renderFilterChips();
+      document.getElementById('brandsGrid').addEventListener('click', e => {
+        const card = e.target.closest('[data-brand]'); if (!card) return;
+        const b = card.dataset.brand;
+        activeFilters.brand = [b];
+        document.querySelectorAll('[data-filter="brand"]').forEach(ch => ch.classList.toggle('active', ch.dataset.value === b));
+        showPage('cars'); renderCars(); toast('Showing ' + b);
+      });
+      document.querySelectorAll('.budget-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const [min, max] = card.dataset.budget.split('-').map(Number);
+          document.getElementById('priceMin').value = min;
+          document.getElementById('priceMax').value = max;
+          showPage('cars'); renderCars();
+        })
+      });
+      document.getElementById('heroSearchBtn').addEventListener('click', () => {
+        const b = document.getElementById('heroBrand').value.toLowerCase().trim();
+        const loc = document.getElementById('heroLocation').value;
+        const bud = document.getElementById('heroBudget').value;
+        document.getElementById('carsSearch').value = b;
+        if (loc) { activeFilters.loc = [loc]; document.querySelectorAll('[data-filter="loc"]').forEach(ch => ch.classList.toggle('active', ch.dataset.value === loc)) }
+        if (bud) { const [mn, mx] = bud.split('-').map(Number); document.getElementById('priceMin').value = mn; document.getElementById('priceMax').value = mx; }
+        showPage('cars'); renderCars();
+      });
+      document.getElementById('carsSearch').addEventListener('input', renderCars);
+      document.getElementById('modelFilter').addEventListener('input', renderCars);
+      document.getElementById('sortSelect').addEventListener('change', renderCars);
+      ;['priceMin', 'priceMax', 'yearMin', 'yearMax', 'kmFilter'].forEach(id => document.getElementById(id).addEventListener('change', renderCars));
+      document.addEventListener('click', e => {
+        const chip = e.target.closest('[data-filter]');
+        if (chip) { toggleChip(chip.dataset.filter, chip.dataset.value, chip); }
+      });
+      document.getElementById('clearFilters').onclick = () => {
+        activeFilters = { brand: [], fuel: [], trans: [], body: [], loc: [] };
+        document.querySelectorAll('.chip.active').forEach(c => c.classList.remove('active'));
+        document.getElementById('carsSearch').value = ''; document.getElementById('modelFilter').value = '';
+        ;['priceMin', 'priceMax', 'yearMin', 'yearMax', 'kmFilter'].forEach(id => document.getElementById(id).value = '');
+        renderCars();
+      };
+      document.getElementById('resetEmpty').onclick = () => document.getElementById('clearFilters').click();
+      document.getElementById('featPrev').onclick = () => document.getElementById('featuredGrid').scrollBy({ left: -300, behavior: 'smooth' });
+      document.getElementById('featNext').onclick = () => document.getElementById('featuredGrid').scrollBy({ left: 300, behavior: 'smooth' });
+      document.addEventListener('click', e => {
+        const d = e.target.closest('[data-details]'); if (d) { renderDetails(parseInt(d.dataset.details)); showPage('car-details'); }
+        const rentButton = e.target.closest('[data-rent]');
+        if (rentButton) {
+          const car = getCars().find(item => item.id === Number(rentButton.dataset.rent));
+          if (car) openBookingRequest(car, 'rental');
+        }
+        const brandLink = e.target.closest('[data-brand]'); if (brandLink && brandLink.tagName === 'A') { e.preventDefault(); const b = brandLink.dataset.brand; activeFilters.brand = [b]; showPage('cars'); renderCars(); }
+      });
+      document.getElementById('sellForm').addEventListener('submit', e => {
+        e.preventDefault();
+        const cars = getCars();
+        const newCar = {
+          id: Date.now(),
+          brand: document.getElementById('sellBrand').value,
+          model: document.getElementById('sellModel').value,
+          year: parseInt(document.getElementById('sellYear').value),
+          price: parseInt(document.getElementById('sellPrice').value),
+          km: parseInt(document.getElementById('sellKm').value),
+          fuel: document.getElementById('sellFuel').value,
+          transmission: document.getElementById('sellTrans').value,
+          body: document.getElementById('sellBody').value,
+          location: document.getElementById('sellLocation').value,
+          image: document.getElementById('sellImage').value || 'https://upload.wikimedia.org/wikipedia/commons/9/91/2025_Hyundai_Creta_N_Line.jpg',
+          featured: document.getElementById('sellFeatured').checked,
+          owners: 1, color: "White", desc: document.getElementById('sellDesc').value || 'Owner listed, well maintained.'
+        };
+        cars.unshift(newCar); saveCars(cars); updateCounts(); e.target.reset(); toast('Car listed successfully!'); showPage('cars'); renderCars(); renderFeatured();
+      });
+      document.getElementById('loginForm').addEventListener('submit', e => {
+        e.preventDefault();
+        const email = document.getElementById('loginEmail').value.trim().toLowerCase(), pass = document.getElementById('loginPass').value;
+        const users = getUsers(); const u = users.find(x => x.email.toLowerCase() === email && x.password === pass);
+        if (!u) { toast('Invalid credentials', false); return; }
+        localStorage.setItem(LS_USER, JSON.stringify(u)); updateCounts(); toast('Welcome ' + u.name); showPage('home');
+      });
+      document.getElementById('registerForm').addEventListener('submit', e => {
+        e.preventDefault();
+        const name = document.getElementById('regName').value.trim(), email = document.getElementById('regEmail').value.trim().toLowerCase(), pass = document.getElementById('regPass').value, confirm = document.getElementById('regConfirm').value, phone = document.getElementById('regPhone').value.trim();
+        if (pass.length < 6) { toast('Password must be at least 6 chars', false); return }
+        if (pass !== confirm) { toast('Passwords do not match', false); return }
+        const users = getUsers(); if (users.some(u => u.email.toLowerCase() === email)) { toast('Email already registered', false); return }
+        const nu = { name, email, password: pass, phone }; users.push(nu); saveUsers(users); localStorage.setItem(LS_USER, JSON.stringify(nu)); updateCounts(); toast('Account created!'); showPage('home');
+      });
+      document.getElementById('contactForm').addEventListener('submit', e => {
+        e.preventDefault();
+        const data = { name: document.getElementById('cName').value, email: document.getElementById('cEmail').value, phone: document.getElementById('cPhone').value, msg: document.getElementById('cMsg').value, time: Date.now() };
+        const arr = JSON.parse(localStorage.getItem('carvia_contacts') || '[]'); arr.push(data); localStorage.setItem('carvia_contacts', JSON.stringify(arr));
+        const subject = encodeURIComponent(`Website enquiry from ${data.name}`);
+        const body = encodeURIComponent(`Name: ${data.name}\nPhone: ${data.phone || 'Not provided'}\nEmail: ${data.email}\n\n${data.msg}`);
+        window.location.href = `mailto:mohammedmaaz4383@gmail.com?subject=${subject}&body=${body}`;
+        toast('Email opened. Press Send in your email app.');
+      });
+    }
+    function bindBookingModal() {
+      const modal = document.getElementById('bookingModal');
+      const closeBtn = document.getElementById('closeBookingModal');
+      const form = document.getElementById('bookingForm');
+      const submitBtn = document.getElementById('bkSubmitBtn');
+      
+      const hideModal = () => {
+        modal.classList.add('hidden');
+        document.body.classList.remove('modal-open');
+        if (bookingReturnFocus && bookingReturnFocus.isConnected) bookingReturnFocus.focus();
+      };
+      const showEmailFallback = (params, message) => {
+        const body = [
+          `Request type: ${params.enquiry_type}`,
+          `Car: ${params.car_name}`,
+          `Price / rental rate: ${params.car_price}`,
+          `Date: ${params.request_date}`,
+          `Time / duration: ${params.request_time_or_duration}`,
+          `Name: ${params.customer_name}`,
+          `Phone: ${params.customer_phone}`,
+          `Email: ${params.customer_email}`,
+          `Location: ${params.location}`,
+          `Message: ${params.message}`
+        ].join('\n');
+        document.getElementById('bookingErrorMsg').textContent = message;
+        const mailLink = document.getElementById('bookingMailLink');
+        mailLink.href = `mailto:mohammedmaaz4383@gmail.com?subject=${encodeURIComponent(`${params.enquiry_type} enquiry: ${params.car_name}`)}&body=${encodeURIComponent(body)}`;
+        mailLink.classList.remove('hidden');
+        form.classList.add('hidden');
+        document.getElementById('bookingError').classList.remove('hidden');
+      };
+      closeBtn.addEventListener('click', hideModal);
+      document.getElementById('bkDoneBtn').addEventListener('click', hideModal);
+      modal.addEventListener('click', event => {
+        if (event.target === modal) hideModal();
+      });
+      modal.addEventListener('keydown', event => {
+        if (event.key === 'Escape') {
+          event.preventDefault();
+          hideModal();
+          return;
+        }
+        if (event.key !== 'Tab') return;
+        const focusable = [...modal.querySelectorAll('button:not(:disabled), a[href], input:not(:disabled), select:not(:disabled), textarea:not(:disabled)')]
+          .filter(element => element.getClientRects().length > 0);
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      });
+      
+      document.getElementById('bkRetryBtn').addEventListener('click', () => {
+        document.getElementById('bookingError').classList.add('hidden');
+        form.classList.remove('hidden');
+      });
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+
+        const btnOriginalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = 'Sending Request...';
+        submitBtn.disabled = true;
+
+        const templateParams = {
+          enquiry_type: currentRequestType,
+          customer_name: document.getElementById('bkName').value.trim(),
+          customer_phone: document.getElementById('bkPhone').value.trim(),
+          customer_email: document.getElementById('bkEmail').value.trim(),
+          car_name: document.getElementById('bkCarName').value,
+          car_price: document.getElementById('bkCarPrice').value,
+          rental_rate: currentRequestType === 'rental' ? document.getElementById('bkCarPrice').value : '',
+          request_date: document.getElementById('bkDate').value,
+          request_time_or_duration: document.getElementById('bkTime').value,
+          test_drive_date: document.getElementById('bkDate').value,
+          test_drive_time: document.getElementById('bkTime').value,
+          location: document.getElementById('bkLocation').value.trim() || 'Not specified',
+          message: document.getElementById('bkMessage').value.trim() || 'No message',
+          submission_time: new Date().toLocaleString()
+        };
+
+        const mailLink = document.getElementById('bookingMailLink');
+        mailLink.classList.add('hidden');
+        if (!window.EMAILJS_READY || !window.emailjs || typeof window.emailjs.send !== 'function') {
+          submitBtn.innerHTML = btnOriginalText;
+          submitBtn.disabled = false;
+          showEmailFallback(templateParams, 'Online email delivery is not configured. Your request has not been sent; use the prepared email below or contact us directly.');
+          return;
+        }
+
+        window.emailjs.send(window.EMAILJS_CONFIG.serviceId, window.EMAILJS_CONFIG.templateId, templateParams)
+          .then((response) => {
+            console.log('SUCCESS!', response.status, response.text);
+            
+            const enq = JSON.parse(localStorage.getItem('carvia_enquiries') || '[]');
+            enq.push({ ...templateParams, status: 'Pending', submittedAt: Date.now() });
+            localStorage.setItem('carvia_enquiries', JSON.stringify(enq));
+            
+            document.getElementById('bkSuccessCar').textContent = templateParams.car_name;
+            document.getElementById('bkSuccessDate').textContent = templateParams.test_drive_date;
+            document.getElementById('bkSuccessTime').textContent = templateParams.test_drive_time;
+            document.getElementById('bkSuccessMsg').textContent = currentRequestType === 'rental'
+              ? `Thank you, ${templateParams.customer_name}. Your rental request has been received.`
+              : `Thank you, ${templateParams.customer_name}. Your test drive request has been received.`;
+            
+            form.classList.add('hidden');
+            document.getElementById('bookingSuccess').classList.remove('hidden');
+            form.reset();
+          })
+          .catch((error) => {
+            console.error('FAILED...', error);
+            showEmailFallback(templateParams, 'We could not send your request online. It has not been sent; use the prepared email below or contact us directly.');
+          })
+          .finally(() => {
+            submitBtn.innerHTML = btnOriginalText;
+            submitBtn.disabled = false;
+          });
+      });
+    }
+
+    seed(); bind(); bindBookingModal(); updateCounts(); renderFeatured(); renderCars(); syncHeroVideo('home');
+  </script>
+</body>
+
+</html>
